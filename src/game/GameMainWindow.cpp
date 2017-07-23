@@ -1,4 +1,4 @@
-#include "GameMainWindow.h"
+#include "game/GameMainWindow.h"
 
 GameMainWindow::GameMainWindow(){
     setupUi(this);

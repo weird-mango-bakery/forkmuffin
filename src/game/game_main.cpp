@@ -1,8 +1,8 @@
 #include <QApplication>
-#include "EditorMainWindow.h"
+#include "game/GameMainWindow.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
-    EditorMainWindow* window = new EditorMainWindow();
+    GameMainWindow* window = new GameMainWindow();
     return app.exec();
 }

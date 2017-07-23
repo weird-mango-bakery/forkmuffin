@@ -16,17 +16,17 @@ set(GAME_NAME "muffin")
 set(EDITOR_NAME "muffin_editor")
 
 set(GAME_SOURCES
-        game_main.cpp
-        game.ui
-        GameMainWindow.cpp
-        GameMainWindow.h
+        game/game_main.cpp
+        game/game.ui
+        game/GameMainWindow.cpp
+        game/GameMainWindow.h
         )
 
 set(EDITOR_SOURCES
-        editor_main.cpp
-        editor.ui
-        EditorMainWindow.cpp
-        EditorMainWindow.h
+        editor/editor_main.cpp
+        editor/editor.ui
+        editor/EditorMainWindow.cpp
+        editor/EditorMainWindow.h
         )
 
 add_executable(${GAME_NAME} ${GAME_SOURCES})

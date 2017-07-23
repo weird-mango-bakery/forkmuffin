@@ -1,4 +1,4 @@
-#include "EditorMainWindow.h"
+#include "editor/EditorMainWindow.h"
 
 EditorMainWindow::EditorMainWindow(){
     setupUi(this);
