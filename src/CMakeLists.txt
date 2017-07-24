@@ -29,8 +29,17 @@ set(EDITOR_SOURCES
         editor/EditorMainWindow.h
         )
 
+set(COMMON_SOURCES
+        common/Level.cpp
+        common/Level.h
+        common/CanvasWidget.cpp
+        common/CanvasWidget.h
+        )
+add_library(muffin_common ${COMMON_SOURCES})
+target_link_libraries(muffin_common Qt5::Core Qt5::Widgets)
+
 add_executable(${GAME_NAME} ${GAME_SOURCES})
-target_link_libraries(${GAME_NAME} Qt5::Widgets Qt5::Core)
+target_link_libraries(${GAME_NAME} muffin_common Qt5::Widgets Qt5::Core)
 
 add_executable(${EDITOR_NAME} ${EDITOR_SOURCES})
-target_link_libraries(${EDITOR_NAME} Qt5::Widgets Qt5::Core)
+target_link_libraries(${EDITOR_NAME} muffin_common Qt5::Widgets Qt5::Core)

@@ -3,5 +3,7 @@
 EditorMainWindow::EditorMainWindow(){
     setupUi(this);
 
+    canvas->setLevel(level);
+
     show();
 }
