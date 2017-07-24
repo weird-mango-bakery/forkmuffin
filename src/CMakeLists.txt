@@ -34,6 +34,7 @@ set(COMMON_SOURCES
         common/Level.h
         common/CanvasWidget.cpp
         common/CanvasWidget.h
+        common/Serializable.h
         )
 add_library(muffin_common ${COMMON_SOURCES})
 target_link_libraries(muffin_common Qt5::Core Qt5::Widgets)

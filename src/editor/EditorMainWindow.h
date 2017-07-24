@@ -11,6 +11,10 @@ Q_OBJECT
 private:
     Level level;
 
+private slots:
+    void on_actionOpen_triggered();
+    void on_actionSaveAs_triggered();
+
 public:
     EditorMainWindow();
 };
