@@ -11,13 +11,13 @@ Q_OBJECT
 private:
     const Level* level = nullptr;
     Camera camera;
-    QPoint curMousePos;
+    QPointF curMousePos;
 
 public slots:
-    //! Zoom camera by multiplying scale by s.
+    //! Zoom camera around current mouse pos by multiplying scale by s.
     //! @param s - value to multiply by (usually you'd want (1+delta) or 1/(1+delta), where delta is close to 0).
     void zoomCamera(float s);
-    void moveCamera(const QPoint& p);
+    void moveCamera(const QPointF& p);
 
 public:
     void setLevel(const Level& lvl);
@@ -31,6 +31,6 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
 
 signals:
-    void mouseDrag(const QPoint& delta);
+    void mouseDrag(const QPointF& delta);
     void mouseWheel(float delta);
 };

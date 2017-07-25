@@ -1,21 +1,20 @@
 #pragma once
 
-#include <QPoint>
+#include <QPointF>
 
 class QPainter;
 
 class Camera {
 private:
     float scale = 1;
-    QPoint translation;
+    QPointF translation;
+
 public:
     float getScale() const;
-
-    const QPoint& getTranslation() const;
-
-public:
     void setScale(float s);
-    void setTranslation(const QPoint& p);
+
+    const QPointF& getTranslation() const;
+    void setTranslation(const QPointF& p);
 
     void apply(QPainter& p) const;
 };

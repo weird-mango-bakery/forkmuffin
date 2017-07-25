@@ -14,7 +14,7 @@ private:
 private slots:
     void on_actionOpen_triggered();
     void on_actionSaveAs_triggered();
-    void on_canvas_mouseDrag(const QPoint& delta);
+    void on_canvas_mouseDrag(const QPointF& delta);
     void on_canvas_mouseWheel(float delta);
 
 public:

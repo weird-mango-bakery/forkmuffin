@@ -24,10 +24,15 @@ void CanvasWidget::setLevel(const Level& lvl) {
 }
 
 void CanvasWidget::zoomCamera(float s) {
+    // first, move (0, 0) of the level to current mouse pos
+    QPointF delta = curMousePos - camera.getTranslation();
+    // then move (0, 0) of the level back with respect to scale change
+    delta -= delta * s;
+    moveCamera(delta);
     camera.setScale(camera.getScale() * s);
 }
 
-void CanvasWidget::moveCamera(const QPoint& p) {
+void CanvasWidget::moveCamera(const QPointF& p) {
     camera.setTranslation(camera.getTranslation() + p);
 }
 
@@ -36,8 +41,8 @@ void CanvasWidget::wheelEvent(QWheelEvent* event) {
 }
 
 void CanvasWidget::mouseMoveEvent(QMouseEvent* event) {
-    QPoint delta = event->pos() - curMousePos;
-    curMousePos = event->pos();
+    QPointF delta = event->pos() - curMousePos;
+    curMousePos = event->localPos();
     if (event->buttons() & Qt::MouseButton::RightButton) {
         emit mouseDrag(delta);
     }

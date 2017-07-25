@@ -50,7 +50,7 @@ void EditorMainWindow::on_actionSaveAs_triggered() {
     saveLevel.write(QJsonDocument(root).toJson());
 }
 
-void EditorMainWindow::on_canvas_mouseDrag(const QPoint& delta) {
+void EditorMainWindow::on_canvas_mouseDrag(const QPointF& delta) {
     canvas->moveCamera(delta);
     canvas->update();
 }
