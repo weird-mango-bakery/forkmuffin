@@ -8,6 +8,7 @@
 EditorMainWindow::EditorMainWindow(){
     setupUi(this);
 
+    canvas->setMouseTracking(true);
     canvas->setLevel(level);
 
     show();
@@ -47,4 +48,14 @@ void EditorMainWindow::on_actionSaveAs_triggered() {
 
     level.write(root);
     saveLevel.write(QJsonDocument(root).toJson());
+}
+
+void EditorMainWindow::on_canvas_mouseDrag(const QPoint& delta) {
+    canvas->moveCamera(delta);
+    canvas->update();
+}
+
+void EditorMainWindow::on_canvas_mouseWheel(float delta) {
+    canvas->zoomCamera(1 + delta/10.f);
+    canvas->update();
 }
