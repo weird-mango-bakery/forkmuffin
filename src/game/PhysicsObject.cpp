@@ -9,3 +9,11 @@ void PhysicsObject::setPos(const QPointF& p) {
 }
 
 PhysicsObject::PhysicsObject(const QPointF& pos): pos(pos) {}
+
+const QPointF& PhysicsObject::getSpeed() const {
+    return speed;
+}
+
+void PhysicsObject::setSpeed(const QPointF& s) {
+    speed = s;
+}

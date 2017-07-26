@@ -4,7 +4,7 @@
 
 #include <QElapsedTimer>
 
-GameMainWindow::GameMainWindow(): player(QPointF(230, 175)) {
+GameMainWindow::GameMainWindow(): player(QPointF(230, 175)), engine(QPointF(0, .1)) {
     setupUi(this);
 
     loadLevel(level, QCoreApplication::applicationDirPath() + "/../data/levels/test.json");

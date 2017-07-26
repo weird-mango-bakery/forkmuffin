@@ -10,19 +10,27 @@ float Player::getZOrder() const {
 }
 
 void Player::moveUp() {
-    setPos(getPos() + QPointF(0, -1));
+    QPointF speed = getSpeed();
+    speed.setY(-1);
+    setSpeed(speed);
 }
 
 void Player::moveDown() {
-    setPos(getPos() + QPointF(0, 1));
+    QPointF speed = getSpeed();
+    speed.setY(1);
+    setSpeed(speed);
 }
 
 void Player::moveLeft() {
-    setPos(getPos() + QPointF(-1, 0));
+    QPointF speed = getSpeed();
+    speed.setX(-1);
+    setSpeed(speed);
 }
 
 void Player::moveRight() {
-    setPos(getPos() + QPointF(1, 0));
+    QPointF speed = getSpeed();
+    speed.setX(1);
+    setSpeed(speed);
 }
 
 QSizeF Player::getSize() const {
