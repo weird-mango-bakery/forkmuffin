@@ -11,6 +11,8 @@ Q_OBJECT
 private:
     Level level;
 
+    QString getLevelsDir() const;
+
 private slots:
     void on_actionOpen_triggered();
     void on_actionSaveAs_triggered();

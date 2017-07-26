@@ -5,6 +5,10 @@
 #include <QJsonObject>
 #include <QMessageBox>
 
+QString EditorMainWindow::getLevelsDir() const {
+    return QCoreApplication::applicationDirPath() + "/../data/levels";
+}
+
 EditorMainWindow::EditorMainWindow(){
     setupUi(this);
 
@@ -15,7 +19,7 @@ EditorMainWindow::EditorMainWindow(){
 }
 
 void EditorMainWindow::on_actionOpen_triggered() {
-    QString path = QFileDialog::getOpenFileName(this, "Open level", QString(), "JSON files (*.json)");
+    QString path = QFileDialog::getOpenFileName(this, "Open level", getLevelsDir(), "JSON files (*.json)");
     if (path.isNull()){
         return;
     }
@@ -31,7 +35,7 @@ void EditorMainWindow::on_actionOpen_triggered() {
 }
 
 void EditorMainWindow::on_actionSaveAs_triggered() {
-    QString path = QFileDialog::getSaveFileName(this, "Save level as", QString(), "JSON files (*.json)");
+    QString path = QFileDialog::getSaveFileName(this, "Save level as", getLevelsDir(), "JSON files (*.json)");
     if (path.isNull()){
         return;
     }
