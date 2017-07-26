@@ -20,6 +20,8 @@ set(GAME_SOURCES
         game/game.ui
         game/GameMainWindow.cpp
         game/GameMainWindow.h
+        game/Player.cpp
+        game/Player.h
         )
 
 set(EDITOR_SOURCES

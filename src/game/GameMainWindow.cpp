@@ -9,6 +9,7 @@ GameMainWindow::GameMainWindow(){
 
     loadLevel(level, QCoreApplication::applicationDirPath() + "/../data/levels/test.json");
     canvas->addRenderable(level);
+    canvas->addRenderable(player);
     connect(&timer, SIGNAL(timeout()), SLOT(mainLoop()));
 
     show();
