@@ -1,8 +1,8 @@
 #include "editor/EditorMainWindow.h"
 
+#include "common/saveload.h"
+
 #include <QFileDialog>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QMessageBox>
 
 QString EditorMainWindow::getLevelsDir() const {
@@ -24,14 +24,10 @@ void EditorMainWindow::on_actionOpen_triggered() {
         return;
     }
 
-    QFile loadLevel(path);
-    if (!loadLevel.open(QIODevice::ReadOnly)){
-        QString message = QString("Couldn't open file \"%1\" for reading.").arg(path);
-        QMessageBox::critical(this, "Error opening level", message);
-        return;
+    QString errorMsg;
+    if (!loadLevel(level, path, &errorMsg)) {
+        QMessageBox::critical(this, "Error opening level", errorMsg);
     }
-
-    level.read(QJsonDocument::fromJson(loadLevel.readAll()).object());
 }
 
 void EditorMainWindow::on_actionSaveAs_triggered() {
@@ -40,18 +36,10 @@ void EditorMainWindow::on_actionSaveAs_triggered() {
         return;
     }
 
-    QFile saveLevel(path);
-    if (!saveLevel.open(QIODevice::WriteOnly)){
-        QString message = QString("Couldn't open file \"%1\" for writing.").arg(path);
-        QMessageBox::critical(this, "Error saving level", message);
-        return;
+    QString errorMsg;
+    if (!saveLevel(level, path, &errorMsg)) {
+        QMessageBox::critical(this, "Error saving level", errorMsg);
     }
-
-    // root object to be filled.
-    QJsonObject root;
-
-    level.write(root);
-    saveLevel.write(QJsonDocument(root).toJson());
 }
 
 void EditorMainWindow::on_canvas_mouseDrag(const QPointF& delta) {
