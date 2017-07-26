@@ -35,7 +35,10 @@ void GameMainWindow::mainLoop() {
     }
 
     // process physics
-    // TODO
+    QSize size = canvas->size();
+    int x = qBound(0, player.getPos().x(), size.width() - player.getSize().width());
+    int y = qBound(0, player.getPos().y(), size.height() - player.getSize().height());
+    player.setPos(QPoint(x, y));
 
     //render
     canvas->repaint(); // force repaint of the whole canvas

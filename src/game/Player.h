@@ -2,6 +2,7 @@
 
 #include <common/Renderable.h>
 #include <QPoint>
+#include <QSize>
 
 class Player: public Renderable {
 private:
@@ -15,6 +16,10 @@ public:
     void moveDown();
     void moveLeft();
     void moveRight();
+
+    QSize getSize() const;
+    const QPoint& getPos() const;
+    void setPos(const QPoint& p);
 };
 
 
