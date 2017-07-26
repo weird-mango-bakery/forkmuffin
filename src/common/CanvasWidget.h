@@ -3,13 +3,14 @@
 #include "common/Camera.h"
 
 #include <QWidget>
+#include <QMultiMap>
 
-class Level;
+class Renderable;
 
 class CanvasWidget : public QWidget {
 Q_OBJECT
 private:
-    const Level* level = nullptr;
+    QMultiMap<float, const Renderable*> renderables;
     Camera camera;
     QPointF curMousePos;
 
@@ -20,7 +21,7 @@ public slots:
     void moveCamera(const QPointF& p);
 
 public:
-    void setLevel(const Level& lvl);
+    void addRenderable(const Renderable& item);
 
     explicit CanvasWidget(QWidget* parent);
 

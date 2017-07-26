@@ -13,7 +13,7 @@ EditorMainWindow::EditorMainWindow(){
     setupUi(this);
 
     canvas->setMouseTracking(true);
-    canvas->setLevel(level);
+    canvas->addRenderable(level);
 
     show();
 }

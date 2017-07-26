@@ -59,3 +59,7 @@ void Level::write(QJsonObject& json) const {
     }
     json["map"] = newMap;
 }
+
+float Level::getZOrder() const {
+    return Z_BACKGROUND;
+}

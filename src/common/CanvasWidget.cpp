@@ -12,15 +12,18 @@ void CanvasWidget::paintEvent(QPaintEvent* event) {
 
     p.fillRect(rect(), Qt::magenta);
 
-    if (level) {
-        level->paint(p);
+    QMapIterator<float, const Renderable*> it(renderables);
+    it.toBack();
+    while(it.hasPrevious()) {
+        it.previous();
+        it.value()->paint(p);
     }
 }
 
 CanvasWidget::CanvasWidget(QWidget* parent): QWidget(parent) {}
 
-void CanvasWidget::setLevel(const Level& lvl) {
-    level = &lvl;
+void CanvasWidget::addRenderable(const Renderable& item) {
+    renderables.insert(item.getZOrder(), &item);
 }
 
 void CanvasWidget::zoomCamera(float s) {
