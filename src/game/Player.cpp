@@ -2,7 +2,7 @@
 #include <QPainter>
 
 void Player::paint(QPainter& p) const {
-    p.fillRect(QRect(pos, getSize()), QColor(0, 255, 128));
+    p.fillRect(QRectF(getPos(), getSize()), QColor(0, 255, 128));
 }
 
 float Player::getZOrder() const {
@@ -10,29 +10,23 @@ float Player::getZOrder() const {
 }
 
 void Player::moveUp() {
-    pos += QPoint(0, -1);
+    setPos(getPos() + QPointF(0, -1));
 }
 
 void Player::moveDown() {
-    pos += QPoint(0, 1);
+    setPos(getPos() + QPointF(0, 1));
 }
 
 void Player::moveLeft() {
-    pos += QPoint(-1, 0);
+    setPos(getPos() + QPointF(-1, 0));
 }
 
 void Player::moveRight() {
-    pos += QPoint(1, 0);
+    setPos(getPos() + QPointF(1, 0));
 }
 
-QSize Player::getSize() const {
-    return QSize(30, 50);
+QSizeF Player::getSize() const {
+    return QSizeF(30, 50);
 }
 
-const QPoint& Player::getPos() const {
-    return pos;
-}
-
-void Player::setPos(const QPoint& p) {
-    pos = p;
-}
+Player::Player(const QPointF& pos): PhysicsObject(pos) {}

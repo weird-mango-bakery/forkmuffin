@@ -1,14 +1,12 @@
 #pragma once
 
-#include <common/Renderable.h>
-#include <QPoint>
-#include <QSize>
+#include "common/Renderable.h"
+#include "game/PhysicsObject.h"
 
-class Player: public Renderable {
-private:
-    QPoint pos = QPoint(230, 175);
-
+class Player: public Renderable, public PhysicsObject {
 public:
+    explicit Player(const QPointF& pos);
+
     void paint(QPainter& p) const override;
     float getZOrder() const override;
 
@@ -17,9 +15,7 @@ public:
     void moveLeft();
     void moveRight();
 
-    QSize getSize() const;
-    const QPoint& getPos() const;
-    void setPos(const QPoint& p);
+    QSizeF getSize() const override;
 };
 
 

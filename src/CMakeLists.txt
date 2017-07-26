@@ -22,6 +22,10 @@ set(GAME_SOURCES
         game/GameMainWindow.h
         game/Player.cpp
         game/Player.h
+        game/PhysicsObject.cpp
+        game/PhysicsObject.h
+        game/PhysicsEngine.cpp
+        game/PhysicsEngine.h
         )
 
 set(EDITOR_SOURCES

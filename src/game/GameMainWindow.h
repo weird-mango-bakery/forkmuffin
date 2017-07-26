@@ -2,6 +2,7 @@
 
 #include "common/Level.h"
 #include "game/Player.h"
+#include "game/PhysicsEngine.h"
 
 #include <QMainWindow>
 #include <QTimer>
@@ -14,6 +15,7 @@ private:
     Player player;
     Level level;
     QTimer timer;
+    PhysicsEngine engine;
 
 private slots:
     void mainLoop();

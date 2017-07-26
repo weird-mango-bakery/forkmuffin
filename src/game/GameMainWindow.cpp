@@ -4,12 +4,13 @@
 
 #include <QElapsedTimer>
 
-GameMainWindow::GameMainWindow(){
+GameMainWindow::GameMainWindow(): player(QPointF(230, 175)) {
     setupUi(this);
 
     loadLevel(level, QCoreApplication::applicationDirPath() + "/../data/levels/test.json");
     canvas->addRenderable(level);
     canvas->addRenderable(player);
+    engine.addObject(player);
     connect(&timer, SIGNAL(timeout()), SLOT(mainLoop()));
 
     show();
@@ -35,10 +36,8 @@ void GameMainWindow::mainLoop() {
     }
 
     // process physics
-    QSize size = canvas->size();
-    int x = qBound(0, player.getPos().x(), size.width() - player.getSize().width());
-    int y = qBound(0, player.getPos().y(), size.height() - player.getSize().height());
-    player.setPos(QPoint(x, y));
+    engine.setBounds(canvas->rect().adjusted(25, 25, -25, -25));
+    engine.process();
 
     //render
     canvas->repaint(); // force repaint of the whole canvas
