@@ -3,6 +3,7 @@
 #include "common/Camera.h"
 
 #include <QWidget>
+#include <QHash>
 #include <QMultiMap>
 
 class Renderable;
@@ -10,6 +11,7 @@ class Renderable;
 class CanvasWidget : public QWidget {
 Q_OBJECT
 private:
+    QHash<int, bool> keyState;
     QMultiMap<float, const Renderable*> renderables;
     Camera camera;
     QPointF curMousePos;
@@ -23,6 +25,8 @@ public slots:
 public:
     void addRenderable(const Renderable& item);
 
+    bool isKeyPressed(Qt::Key key) const;
+
     explicit CanvasWidget(QWidget* parent);
 
 protected:
@@ -30,6 +34,9 @@ protected:
     void wheelEvent(QWheelEvent* event) override;
 
     void mouseMoveEvent(QMouseEvent* event) override;
+
+    void keyPressEvent(QKeyEvent* event) override;
+    void keyReleaseEvent(QKeyEvent* event) override;
 
 signals:
     void mouseDrag(const QPointF& delta);

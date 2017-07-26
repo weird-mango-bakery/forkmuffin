@@ -21,7 +21,18 @@ void GameMainWindow::mainLoop() {
     spentCounter.start();
 
     // handle input
-    // TODO
+    if (canvas->isKeyPressed(Qt::Key_Up) || canvas->isKeyPressed(Qt::Key_W)) {
+        player.moveUp();
+    }
+    if (canvas->isKeyPressed(Qt::Key_Down) || canvas->isKeyPressed(Qt::Key_S)) {
+        player.moveDown();
+    }
+    if (canvas->isKeyPressed(Qt::Key_Left) || canvas->isKeyPressed(Qt::Key_A)) {
+        player.moveLeft();
+    }
+    if (canvas->isKeyPressed(Qt::Key_Right) || canvas->isKeyPressed(Qt::Key_D)) {
+        player.moveRight();
+    }
 
     // process physics
     // TODO

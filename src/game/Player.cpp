@@ -8,3 +8,19 @@ void Player::paint(QPainter& p) const {
 float Player::getZOrder() const {
     return Z_MIDDLE;
 }
+
+void Player::moveUp() {
+    pos += QPoint(0, -1);
+}
+
+void Player::moveDown() {
+    pos += QPoint(0, 1);
+}
+
+void Player::moveLeft() {
+    pos += QPoint(-1, 0);
+}
+
+void Player::moveRight() {
+    pos += QPoint(1, 0);
+}

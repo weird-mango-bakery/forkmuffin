@@ -20,7 +20,9 @@ void CanvasWidget::paintEvent(QPaintEvent* event) {
     }
 }
 
-CanvasWidget::CanvasWidget(QWidget* parent): QWidget(parent) {}
+CanvasWidget::CanvasWidget(QWidget* parent): QWidget(parent) {
+    setFocusPolicy(Qt::StrongFocus);
+}
 
 void CanvasWidget::addRenderable(const Renderable& item) {
     renderables.insert(item.getZOrder(), &item);
@@ -49,4 +51,22 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent* event) {
     if (event->buttons() & Qt::MouseButton::RightButton) {
         emit mouseDrag(delta);
     }
+}
+
+void CanvasWidget::keyPressEvent(QKeyEvent* event) {
+    if (event->isAutoRepeat()) {
+        return;
+    }
+    keyState.insert(event->key(), true);
+}
+
+void CanvasWidget::keyReleaseEvent(QKeyEvent* event) {
+    if (event->isAutoRepeat()) {
+        return;
+    }
+    keyState.insert(event->key(), false);
+}
+
+bool CanvasWidget::isKeyPressed(Qt::Key key) const {
+    return keyState.value(key, false);
 }
