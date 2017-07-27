@@ -20,4 +20,8 @@ public:
 
     QPointF screenToWorld(const QPointF& pos) const;
     QPointF worldToScreen(const QPointF& pos) const;
+    static QPoint worldToLevel(const QPointF& pos);
+    static QPointF levelToWorld(const QPoint& pos);
+    QPoint screenToLevel(const QPointF& pos) const;
+    QPointF levelToScreen(const QPoint& pos) const;
 };

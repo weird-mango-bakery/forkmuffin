@@ -15,10 +15,9 @@ void Grid::paint(QPainter& p) const {
     for (int y = 0; y <= 600; y += d) {
         p.drawLine(0, y, 800, y);
     }
-    p.setPen(QPen(Qt::blue, 4));
-    QPointF pos = camera.screenToWorld(mousePos);
-    p.drawLine(pos - QPointF(20, 0), pos + QPointF(20, 0));
-    p.drawLine(pos - QPointF(0, 20), pos + QPointF(0, 20));
+    p.setPen(QPen(Qt::green, 4));
+    QPointF pos = camera.levelToWorld(camera.screenToLevel(mousePos));
+    p.drawRect(QRectF(pos, Level::BLOCK_BOX));
 }
 
 float Grid::getZOrder() const {
