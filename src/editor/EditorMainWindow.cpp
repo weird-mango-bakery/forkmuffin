@@ -48,6 +48,6 @@ void EditorMainWindow::on_canvas_mouseDrag(const QPointF& delta) {
 }
 
 void EditorMainWindow::on_canvas_mouseWheel(float delta) {
-    canvas->zoomCamera(1 + delta/10.f);
+    canvas->zoomCamera(1 + delta/10.f, canvas->getCurMousePos());
     canvas->update();
 }

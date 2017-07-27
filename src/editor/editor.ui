@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Editor</string>
   </property>
-  <widget class="CanvasWidget" name="canvas"/>
+  <widget class="EditorCanvasWidget" name="canvas"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -46,9 +46,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CanvasWidget</class>
+   <class>EditorCanvasWidget</class>
    <extends>QWidget</extends>
-   <header>common/CanvasWidget.h</header>
+   <header>editor/EditorCanvasWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

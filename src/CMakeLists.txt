@@ -33,6 +33,8 @@ set(EDITOR_SOURCES
         editor/editor.ui
         editor/EditorMainWindow.cpp
         editor/EditorMainWindow.h
+        editor/EditorCanvasWidget.cpp
+        editor/EditorCanvasWidget.h
         )
 
 set(COMMON_SOURCES

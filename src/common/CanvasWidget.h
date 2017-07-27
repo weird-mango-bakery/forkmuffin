@@ -12,12 +12,12 @@ Q_OBJECT
 private:
     QMultiMap<float, const Renderable*> renderables;
     Camera camera;
-    QPointF curMousePos;
 
 public slots:
-    //! Zoom camera around current mouse pos by multiplying scale by s.
+    //! Zoom camera around given pos by multiplying scale by s.
     //! @param s - value to multiply by (usually you'd want (1+delta) or 1/(1+delta), where delta is close to 0).
-    void zoomCamera(float s);
+    //! @param pos - point that keeps its position on screen when zoom is changed.
+    void zoomCamera(float s, const QPointF& pos);
     void moveCamera(const QPointF& p);
 
 public:
@@ -27,11 +27,4 @@ public:
 
 protected:
     void paintEvent(QPaintEvent* event) override;
-    void wheelEvent(QWheelEvent* event) override;
-
-    void mouseMoveEvent(QMouseEvent* event) override;
-
-signals:
-    void mouseDrag(const QPointF& delta);
-    void mouseWheel(float delta);
 };
