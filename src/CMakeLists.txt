@@ -35,6 +35,8 @@ set(EDITOR_SOURCES
         editor/EditorMainWindow.h
         editor/EditorCanvasWidget.cpp
         editor/EditorCanvasWidget.h
+        editor/Grid.cpp
+        editor/Grid.h
         )
 
 set(COMMON_SOURCES

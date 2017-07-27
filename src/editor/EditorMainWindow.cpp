@@ -9,11 +9,12 @@ QString EditorMainWindow::getLevelsDir() const {
     return QCoreApplication::applicationDirPath() + "/../data/levels";
 }
 
-EditorMainWindow::EditorMainWindow(){
+EditorMainWindow::EditorMainWindow() {
     setupUi(this);
 
     canvas->setMouseTracking(true);
     canvas->addRenderable(level);
+    canvas->addRenderable(grid);
 
     show();
 }

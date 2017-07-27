@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common/Level.h"
+#include "editor/Grid.h"
 
 #include <QMainWindow>
 
@@ -10,6 +11,7 @@ class EditorMainWindow : public QMainWindow, private Ui::EditorMainWindow {
 Q_OBJECT
 private:
     Level level;
+    Grid grid;
 
     QString getLevelsDir() const;
 

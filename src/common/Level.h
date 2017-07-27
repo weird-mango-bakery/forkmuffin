@@ -7,6 +7,7 @@
 #include <QList>
 #include <QString>
 #include <QHash>
+#include <QSize>
 
 class QPainter;
 
@@ -16,6 +17,8 @@ private:
     QHash<QChar, Block> blocks;
 
 public:
+    static const QSize BLOCK_SIZE;
+
     void paint(QPainter& painter) const override;
     float getZOrder() const override;
 

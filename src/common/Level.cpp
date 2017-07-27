@@ -4,7 +4,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-const QSize BLOCK_SIZE = QSize(50, 50);
+const QSize Level::BLOCK_SIZE = QSize(50, 50);
 
 void Level::paint(QPainter& painter) const {
     painter.setBrush(Qt::white);
