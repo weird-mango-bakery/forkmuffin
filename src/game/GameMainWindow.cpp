@@ -3,6 +3,7 @@
 #include "common/saveload.h"
 
 #include <QElapsedTimer>
+#include <QKeyEvent>
 
 GameMainWindow::GameMainWindow(): player(QPointF(230, 175)), engine(QPointF(0, .1)) {
     setupUi(this);
@@ -22,16 +23,16 @@ void GameMainWindow::mainLoop() {
     spentCounter.start();
 
     // handle input
-    if (canvas->isKeyPressed(Qt::Key_Up) || canvas->isKeyPressed(Qt::Key_W)) {
+    if (isKeyPressed(Qt::Key_Up) || isKeyPressed(Qt::Key_W)) {
         player.moveUp();
     }
-    if (canvas->isKeyPressed(Qt::Key_Down) || canvas->isKeyPressed(Qt::Key_S)) {
+    if (isKeyPressed(Qt::Key_Down) || isKeyPressed(Qt::Key_S)) {
         player.moveDown();
     }
-    if (canvas->isKeyPressed(Qt::Key_Left) || canvas->isKeyPressed(Qt::Key_A)) {
+    if (isKeyPressed(Qt::Key_Left) || isKeyPressed(Qt::Key_A)) {
         player.moveLeft();
     }
-    if (canvas->isKeyPressed(Qt::Key_Right) || canvas->isKeyPressed(Qt::Key_D)) {
+    if (isKeyPressed(Qt::Key_Right) || isKeyPressed(Qt::Key_D)) {
         player.moveRight();
     }
 
@@ -43,4 +44,22 @@ void GameMainWindow::mainLoop() {
     canvas->repaint(); // force repaint of the whole canvas
 
     statusbar->showMessage(QString("%1 msec total spent in main loop").arg(spentCounter.elapsed()));
+}
+
+void GameMainWindow::keyPressEvent(QKeyEvent* event) {
+    if (event->isAutoRepeat()) {
+        return;
+    }
+    keyState.insert(event->key(), true);
+}
+
+void GameMainWindow::keyReleaseEvent(QKeyEvent* event) {
+    if (event->isAutoRepeat()) {
+        return;
+    }
+    keyState.insert(event->key(), false);
+}
+
+bool GameMainWindow::isKeyPressed(Qt::Key key) const {
+    return keyState.value(key, false);
 }

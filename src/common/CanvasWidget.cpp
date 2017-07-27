@@ -52,21 +52,3 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent* event) {
         emit mouseDrag(delta);
     }
 }
-
-void CanvasWidget::keyPressEvent(QKeyEvent* event) {
-    if (event->isAutoRepeat()) {
-        return;
-    }
-    keyState.insert(event->key(), true);
-}
-
-void CanvasWidget::keyReleaseEvent(QKeyEvent* event) {
-    if (event->isAutoRepeat()) {
-        return;
-    }
-    keyState.insert(event->key(), false);
-}
-
-bool CanvasWidget::isKeyPressed(Qt::Key key) const {
-    return keyState.value(key, false);
-}

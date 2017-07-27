@@ -16,10 +16,17 @@ private:
     Level level;
     QTimer timer;
     PhysicsEngine engine;
+    QHash<int, bool> keyState;
 
 private slots:
     void mainLoop();
 
 public:
     GameMainWindow();
+
+    bool isKeyPressed(Qt::Key key) const;
+
+protected:
+    void keyPressEvent(QKeyEvent* event) override;
+    void keyReleaseEvent(QKeyEvent* event) override;
 };
