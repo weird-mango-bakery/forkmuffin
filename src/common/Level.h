@@ -17,7 +17,8 @@ private:
     QHash<QChar, Block> blocks;
 
 public:
-    static const QSize BLOCK_SIZE;
+    static const int BLOCK_SIZE;
+    static const QSize BLOCK_BOX;
 
     void paint(QPainter& painter) const override;
     float getZOrder() const override;

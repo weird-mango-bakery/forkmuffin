@@ -4,7 +4,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-const QSize Level::BLOCK_SIZE = QSize(50, 50);
+const int Level::BLOCK_SIZE = 50;
+const QSize Level::BLOCK_BOX = QSize(Level::BLOCK_SIZE, Level::BLOCK_SIZE);
 
 void Level::paint(QPainter& painter) const {
     painter.setBrush(Qt::white);
@@ -15,7 +16,7 @@ void Level::paint(QPainter& painter) const {
         int x = 0;
         for (QChar chr : row) {
             if (blocks.contains(chr)) {
-                painter.fillRect(QRect(QPoint(x, y) * BLOCK_SIZE.width(), BLOCK_SIZE), blocks[chr].getColor());
+                painter.fillRect(QRect(QPoint(x, y) * BLOCK_SIZE, BLOCK_BOX), blocks[chr].getColor());
             }
             x++;
         }
