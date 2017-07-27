@@ -6,6 +6,7 @@ class EditorCanvasWidget: public CanvasWidget {
 Q_OBJECT
 private:
     QPointF curMousePos;
+    bool mouseMoved = false;
 
 public:
     explicit EditorCanvasWidget(QWidget* parent);
@@ -15,9 +16,12 @@ public:
 protected:
     void wheelEvent(QWheelEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
 
 signals:
     void mouseDrag(const QPointF& delta);
     void mouseWheel(float delta);
     void mouseMove(const QPointF& pos);
+    void mouseClick(const QPointF& pos);
 };

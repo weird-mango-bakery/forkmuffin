@@ -10,6 +10,7 @@
 #include <QSize>
 
 class QPainter;
+class QPoint;
 
 class Level : public Serializable, public Renderable {
 private:
@@ -20,9 +21,17 @@ public:
     static const int BLOCK_SIZE;
     static const QSize BLOCK_BOX;
 
+    Level();
+
+    int getWidth() const;
+    int getHeight() const;
+    bool isInside(const QPoint& pos) const;
+
     void paint(QPainter& painter) const override;
     float getZOrder() const override;
 
     void read(const QJsonObject& json) override;
     void write(QJsonObject& json) const override;
+
+    void toggleBlock(int x, int y);
 };

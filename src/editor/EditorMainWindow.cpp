@@ -57,6 +57,15 @@ void EditorMainWindow::on_canvas_mouseWheel(float delta) {
     canvas->update();
 }
 
+void EditorMainWindow::on_canvas_mouseClick(const QPointF& pos) {
+    QPoint levelPos = canvas->getCamera().screenToLevel(pos);
+    if (!level.isInside(levelPos)) {
+        return;
+}
+    level.toggleBlock(levelPos.x(), levelPos.y());
+    canvas->update();
+}
+
 EditorMainWindow::~EditorMainWindow() {
     delete grid;
 }

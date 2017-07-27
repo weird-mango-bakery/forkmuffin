@@ -15,6 +15,7 @@ void EditorCanvasWidget::mouseMoveEvent(QMouseEvent* event) {
     QPointF delta = event->pos() - curMousePos;
     curMousePos = event->localPos();
     emit mouseMove(curMousePos);
+    mouseMoved = true;
     if (event->buttons() & Qt::MouseButton::RightButton) {
         emit mouseDrag(delta);
     }
@@ -23,4 +24,14 @@ void EditorCanvasWidget::mouseMoveEvent(QMouseEvent* event) {
 
 const QPointF& EditorCanvasWidget::getCurMousePos() const {
     return curMousePos;
+}
+
+void EditorCanvasWidget::mousePressEvent(QMouseEvent* event) {
+    mouseMoved = false;
+}
+
+void EditorCanvasWidget::mouseReleaseEvent(QMouseEvent* event) {
+    if (!mouseMoved) {
+        emit mouseClick(curMousePos);
+    }
 }
