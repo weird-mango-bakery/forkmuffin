@@ -19,7 +19,6 @@ void CanvasWidget::paintEvent(QPaintEvent* event) {
 }
 
 CanvasWidget::CanvasWidget(QWidget* parent): QWidget(parent) {
-    setFocusPolicy(Qt::StrongFocus);
 }
 
 void CanvasWidget::addRenderable(const Renderable& item) {
