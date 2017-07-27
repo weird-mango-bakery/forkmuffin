@@ -1,12 +1,11 @@
 #include "gtest/gtest.h"
+#include "pretty_print.h"
 
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
 
 #include "common/Level.h"
-
-#include "pretty_print.h"
 
 TEST(level, save) {
     // TODO: construct level and check it saves correctly

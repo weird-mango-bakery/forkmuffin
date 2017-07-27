@@ -1,12 +1,12 @@
 #include "gtest/gtest.h"
+#include "pretty_print.h"
 
 #include "common/utils.h"
 
-
 TEST(utils, stringToColor) {
-   EXPECT_EQ(stringToColor("000000"), QColor(0, 0, 0));
-   EXPECT_EQ(stringToColor("ff0080"), QColor(255, 0, 128));
-   EXPECT_EQ(stringToColor("012345"), QColor(1, 35, 69));
+    EXPECT_EQ(stringToColor("000000"), QColor(0, 0, 0));
+    EXPECT_EQ(stringToColor("ff0080"), QColor(255, 0, 128));
+    EXPECT_EQ(stringToColor("012345"), QColor(1, 35, 69));
 }
 
 TEST(utils, colorToString) {

@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include "pretty_print.h"
 
 #include <QJsonObject>
 #include "common/Block.h"
