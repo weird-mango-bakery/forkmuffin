@@ -26,7 +26,7 @@ void Level::paint(QPainter& painter) const {
 void Level::read(const QJsonObject& json) {
     int version = json["version"].toInt(-1);
     if (version == -1) {
-        printf("File with invalid version!");
+        printf("File with invalid version!\n");
     } else {
         printf("Reading from version %d\n", version);
     }
