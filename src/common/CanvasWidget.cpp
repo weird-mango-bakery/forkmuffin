@@ -14,7 +14,9 @@ void CanvasWidget::paintEvent(QPaintEvent* event) {
     it.toBack();
     while(it.hasPrevious()) {
         it.previous();
+        p.save();
         it.value()->paint(p);
+        p.restore();
     }
 }
 
