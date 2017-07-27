@@ -1,5 +1,6 @@
-#include <common/utils.h>
 #include "gtest/gtest.h"
+
+#include "common/utils.h"
 
 
 TEST(utils, stringToColor) {

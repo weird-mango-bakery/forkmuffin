@@ -1,6 +1,7 @@
+#include "gtest/gtest.h"
+
 #include <QJsonObject>
 #include "common/Block.h"
-#include "gtest/gtest.h"
 
 void testColorRead(const QString& s, const QColor& c){
     Block b;
