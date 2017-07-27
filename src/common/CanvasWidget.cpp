@@ -23,6 +23,10 @@ void CanvasWidget::paintEvent(QPaintEvent* event) {
 CanvasWidget::CanvasWidget(QWidget* parent): QWidget(parent) {
 }
 
+const Camera& CanvasWidget::getCamera() const {
+    return camera;
+}
+
 void CanvasWidget::addRenderable(const Renderable& item) {
     renderables.insert(item.getZOrder(), &item);
 }

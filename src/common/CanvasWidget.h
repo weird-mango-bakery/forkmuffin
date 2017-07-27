@@ -25,6 +25,8 @@ public:
 
     explicit CanvasWidget(QWidget* parent);
 
+    const Camera& getCamera() const;
+
 protected:
     void paintEvent(QPaintEvent* event) override;
 };

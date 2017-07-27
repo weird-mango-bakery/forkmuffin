@@ -1,17 +1,18 @@
 #pragma once
 
 #include "common/Level.h"
-#include "editor/Grid.h"
 
 #include <QMainWindow>
 
 #include "ui_editor.h"
 
+class Grid;
+
 class EditorMainWindow : public QMainWindow, private Ui::EditorMainWindow {
 Q_OBJECT
 private:
     Level level;
-    Grid grid;
+    Grid* grid;
 
     QString getLevelsDir() const;
 
@@ -23,4 +24,5 @@ private slots:
 
 public:
     EditorMainWindow();
+    ~EditorMainWindow() override;
 };

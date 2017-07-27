@@ -1,6 +1,7 @@
 #include "editor/EditorMainWindow.h"
 
 #include "common/saveload.h"
+#include "editor/Grid.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -11,10 +12,13 @@ QString EditorMainWindow::getLevelsDir() const {
 
 EditorMainWindow::EditorMainWindow() {
     setupUi(this);
+    grid = new Grid(canvas->getCamera());
 
     canvas->setMouseTracking(true);
     canvas->addRenderable(level);
-    canvas->addRenderable(grid);
+    canvas->addRenderable(*grid);
+
+    connect(canvas, SIGNAL(mouseMove(const QPointF&)), grid, SLOT(mouseMoved(const QPointF&)));
 
     show();
 }
@@ -51,4 +55,8 @@ void EditorMainWindow::on_canvas_mouseDrag(const QPointF& delta) {
 void EditorMainWindow::on_canvas_mouseWheel(float delta) {
     canvas->zoomCamera(1 + delta/10.f, canvas->getCurMousePos());
     canvas->update();
+}
+
+EditorMainWindow::~EditorMainWindow() {
+    delete grid;
 }

@@ -3,6 +3,7 @@
 #include <QString>
 #include <QColor>
 #include <QJsonDocument>
+#include <QPointF>
 
 void PrintTo(const QString& o, std::ostream* stream) {
     if (o.isNull()) {
@@ -42,4 +43,8 @@ void PrintTo(const QColor& o, std::ostream* stream) {
 
 void PrintTo(const QJsonObject& o, std::ostream* stream) {
     *stream << "QJsonObject" << QJsonDocument(o).toJson().data();
+}
+
+void PrintTo(const QPointF& o, std::ostream* stream) {
+    *stream << "QPointF{" << o.x() << ", " << o.y() << "}";
 }

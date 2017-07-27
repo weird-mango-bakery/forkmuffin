@@ -19,4 +19,5 @@ protected:
 signals:
     void mouseDrag(const QPointF& delta);
     void mouseWheel(float delta);
+    void mouseMove(const QPointF& pos);
 };

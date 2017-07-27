@@ -17,4 +17,7 @@ public:
     void setTranslation(const QPointF& p);
 
     void apply(QPainter& p) const;
+
+    QPointF screenToWorld(const QPointF& pos) const;
+    QPointF worldToScreen(const QPointF& pos) const;
 };
