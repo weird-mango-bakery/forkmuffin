@@ -2,6 +2,7 @@
 
 #include "common/saveload.h"
 #include "editor/Grid.h"
+#include "editor/commands/EditorCommand.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -18,6 +19,10 @@ EditorMainWindow::EditorMainWindow(): blockTool(*this) {
     canvas->addRenderable(*grid);
 
     connect(canvas, SIGNAL(mouseMove(const QPointF&)), grid, SLOT(mouseMoved(const QPointF&)));
+
+    menuEdit->addAction(undoStack.createUndoAction(this));
+    menuEdit->addAction(undoStack.createRedoAction(this));
+    connect(&undoStack, SIGNAL(indexChanged(int)), canvas, SLOT(update()));
 
     show();
 }
@@ -58,7 +63,6 @@ void EditorMainWindow::on_canvas_mouseWheel(float delta) {
 
 void EditorMainWindow::on_canvas_mouseClick(const QPointF& pos) {
     blockTool.mouseClick(pos);
-    canvas->update();
 }
 
 EditorMainWindow::~EditorMainWindow() {
@@ -71,4 +75,8 @@ Level& EditorMainWindow::getLevel() {
 
 const Camera& EditorMainWindow::getCamera() {
     return canvas->getCamera();
+}
+
+void EditorMainWindow::pushCommand(EditorCommand& command) {
+    undoStack.push(&command);
 }

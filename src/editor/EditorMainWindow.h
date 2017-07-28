@@ -4,16 +4,20 @@
 #include "editor/tools/BlockTool.h"
 
 #include <QMainWindow>
+#include <QUndoStack>
 
 #include "ui_editor.h"
 
 class Grid;
+class EditorCommand;
 
 class EditorMainWindow : public QMainWindow, private Ui::EditorMainWindow {
 Q_OBJECT
 private:
     Level level;
     Grid* grid = nullptr;
+
+    QUndoStack undoStack;
 
     BlockTool blockTool;
 
@@ -32,4 +36,6 @@ public:
 
     Level& getLevel();
     const Camera& getCamera();
+
+    void pushCommand(EditorCommand& command);
 };

@@ -41,6 +41,10 @@ set(EDITOR_SOURCES
         editor/tools/Tool.h
         editor/tools/BlockTool.cpp
         editor/tools/BlockTool.h
+        editor/commands/EditorCommand.cpp
+        editor/commands/EditorCommand.h
+        editor/commands/ToggleBlockCommand.cpp
+        editor/commands/ToggleBlockCommand.h
         )
 
 set(COMMON_SOURCES
