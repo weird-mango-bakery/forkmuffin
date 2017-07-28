@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common/Level.h"
+#include "editor/tools/BlockTool.h"
 
 #include <QMainWindow>
 
@@ -12,7 +13,9 @@ class EditorMainWindow : public QMainWindow, private Ui::EditorMainWindow {
 Q_OBJECT
 private:
     Level level;
-    Grid* grid;
+    Grid* grid = nullptr;
+
+    BlockTool blockTool;
 
     QString getLevelsDir() const;
 
@@ -26,4 +29,7 @@ private slots:
 public:
     EditorMainWindow();
     ~EditorMainWindow() override;
+
+    Level& getLevel();
+    const Camera& getCamera();
 };

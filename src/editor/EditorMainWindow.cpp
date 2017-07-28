@@ -10,7 +10,7 @@ QString EditorMainWindow::getLevelsDir() const {
     return QCoreApplication::applicationDirPath() + "/../data/levels";
 }
 
-EditorMainWindow::EditorMainWindow() {
+EditorMainWindow::EditorMainWindow(): blockTool(*this) {
     setupUi(this);
     grid = new Grid(canvas->getCamera());
 
@@ -58,14 +58,18 @@ void EditorMainWindow::on_canvas_mouseWheel(float delta) {
 }
 
 void EditorMainWindow::on_canvas_mouseClick(const QPointF& pos) {
-    QPoint levelPos = canvas->getCamera().screenToLevel(pos);
-    if (!level.isInside(levelPos)) {
-        return;
-}
-    level.toggleBlock(levelPos.x(), levelPos.y());
+    blockTool.mouseClick(pos);
     canvas->update();
 }
 
 EditorMainWindow::~EditorMainWindow() {
     delete grid;
+}
+
+Level& EditorMainWindow::getLevel() {
+    return level;
+}
+
+const Camera& EditorMainWindow::getCamera() {
+    return canvas->getCamera();
 }

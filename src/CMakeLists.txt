@@ -37,6 +37,10 @@ set(EDITOR_SOURCES
         editor/EditorCanvasWidget.h
         editor/Grid.cpp
         editor/Grid.h
+        editor/tools/Tool.cpp
+        editor/tools/Tool.h
+        editor/tools/BlockTool.cpp
+        editor/tools/BlockTool.h
         )
 
 set(COMMON_SOURCES
