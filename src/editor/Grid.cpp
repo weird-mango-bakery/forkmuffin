@@ -10,11 +10,13 @@ Grid::Grid(const EditorMainWindow& editor): editor(editor) {}
 void Grid::paint(QPainter& p) const {
     p.setPen(QPen(Qt::darkBlue, 2));
     int d = Level::BLOCK_SIZE;
-    for (int x = 0; x <= 800; x += d) {
-        p.drawLine(x, 0, x, 600);
+    int w = editor.getLevel().getWidth() * d;
+    int h = editor.getLevel().getHeight() * d;
+    for (int x = 0; x <= w; x += d) {
+        p.drawLine(x, 0, x, h);
     }
-    for (int y = 0; y <= 600; y += d) {
-        p.drawLine(0, y, 800, y);
+    for (int y = 0; y <= h; y += d) {
+        p.drawLine(0, y, w, y);
     }
     p.setPen(QPen(Qt::green, 4));
     QPointF pos = editor.getCamera().levelToWorld(editor.getCamera().screenToLevel(mousePos));

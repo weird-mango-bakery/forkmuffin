@@ -40,6 +40,7 @@ public:
     EditorMainWindow();
 
     Level& getLevel();
+    const Level& getLevel() const;
     const Camera& getCamera() const;
 
     void pushCommand(EditorCommand& command);

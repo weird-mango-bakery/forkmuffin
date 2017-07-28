@@ -100,6 +100,10 @@ Level& EditorMainWindow::getLevel() {
     return level;
 }
 
+const Level& EditorMainWindow::getLevel() const {
+    return level;
+}
+
 const Camera& EditorMainWindow::getCamera() const {
     return canvas->getCamera();
 }
