@@ -14,7 +14,6 @@ EditorMainWindow::EditorMainWindow(): blockTool(*this) {
     setupUi(this);
     grid = new Grid(canvas->getCamera());
 
-    canvas->setMouseTracking(true);
     canvas->addRenderable(level);
     canvas->addRenderable(*grid);
 
