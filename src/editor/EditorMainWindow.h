@@ -2,20 +2,20 @@
 
 #include "common/Level.h"
 #include "editor/tools/BlockTool.h"
+#include "editor/Grid.h"
 
 #include <QMainWindow>
 #include <QUndoStack>
 
 #include "ui_editor.h"
 
-class Grid;
 class EditorCommand;
 
 class EditorMainWindow : public QMainWindow, private Ui::EditorMainWindow {
 Q_OBJECT
 private:
     Level level;
-    Grid* grid = nullptr;
+    Grid grid;
 
     QUndoStack undoStack;
 
@@ -32,10 +32,9 @@ private slots:
 
 public:
     EditorMainWindow();
-    ~EditorMainWindow() override;
 
     Level& getLevel();
-    const Camera& getCamera();
+    const Camera& getCamera() const;
 
     void pushCommand(EditorCommand& command);
 };

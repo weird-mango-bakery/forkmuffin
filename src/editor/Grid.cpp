@@ -2,9 +2,10 @@
 
 #include "common/Level.h"
 #include "common/Camera.h"
+#include "editor/EditorMainWindow.h"
 #include <QPainter>
 
-Grid::Grid(const Camera& camera): camera(camera) {}
+Grid::Grid(const EditorMainWindow& editor): editor(editor) {}
 
 void Grid::paint(QPainter& p) const {
     p.setPen(QPen(Qt::darkBlue, 2));
@@ -16,7 +17,7 @@ void Grid::paint(QPainter& p) const {
         p.drawLine(0, y, 800, y);
     }
     p.setPen(QPen(Qt::green, 4));
-    QPointF pos = camera.levelToWorld(camera.screenToLevel(mousePos));
+    QPointF pos = editor.getCamera().levelToWorld(editor.getCamera().screenToLevel(mousePos));
     p.drawRect(QRectF(pos, Level::BLOCK_BOX));
 }
 

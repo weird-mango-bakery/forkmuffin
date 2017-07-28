@@ -1,7 +1,6 @@
 #include "editor/EditorMainWindow.h"
 
 #include "common/saveload.h"
-#include "editor/Grid.h"
 #include "editor/commands/EditorCommand.h"
 
 #include <QFileDialog>
@@ -11,14 +10,13 @@ QString EditorMainWindow::getLevelsDir() const {
     return QCoreApplication::applicationDirPath() + "/../data/levels";
 }
 
-EditorMainWindow::EditorMainWindow(): blockTool(*this) {
+EditorMainWindow::EditorMainWindow(): grid(*this), blockTool(*this) {
     setupUi(this);
-    grid = new Grid(canvas->getCamera());
 
     canvas->addRenderable(level);
-    canvas->addRenderable(*grid);
+    canvas->addRenderable(grid);
 
-    connect(canvas, SIGNAL(mouseMove(const QPointF&)), grid, SLOT(mouseMoved(const QPointF&)));
+    connect(canvas, SIGNAL(mouseMove(const QPointF&)), &grid, SLOT(mouseMoved(const QPointF&)));
 
     QAction* undoAction = undoStack.createUndoAction(this);
     undoAction->setShortcut(QKeySequence("Ctrl+Z"));
@@ -69,15 +67,11 @@ void EditorMainWindow::on_canvas_mouseClick(const QPointF& pos) {
     blockTool.mouseClick(pos);
 }
 
-EditorMainWindow::~EditorMainWindow() {
-    delete grid;
-}
-
 Level& EditorMainWindow::getLevel() {
     return level;
 }
 
-const Camera& EditorMainWindow::getCamera() {
+const Camera& EditorMainWindow::getCamera() const {
     return canvas->getCamera();
 }
 

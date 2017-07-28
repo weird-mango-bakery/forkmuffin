@@ -4,16 +4,16 @@
 #include <QObject>
 #include <QPointF>
 
-class Camera;
+class EditorMainWindow;
 
 class Grid: public QObject, public Renderable {
 Q_OBJECT
 private:
-    const Camera& camera;
+    const EditorMainWindow& editor;
     QPointF mousePos;
 
 public:
-    explicit Grid(const Camera& camera);
+    explicit Grid(const EditorMainWindow& editor);
 
     void paint(QPainter& p) const override;
 
