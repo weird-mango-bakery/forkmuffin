@@ -20,15 +20,21 @@ private:
     QUndoStack undoStack;
 
     BlockTool blockTool;
+    QString path;
 
     QString getLevelsDir() const;
+    void doSaveLevel(const QString& savePath);
 
 private slots:
+    void on_actionNew_triggered();
     void on_actionOpen_triggered();
+    void on_actionSave_triggered();
     void on_actionSaveAs_triggered();
     void on_canvas_mouseDrag(const QPointF& delta);
     void on_canvas_mouseWheel(float delta);
     void on_canvas_mouseClick(const QPointF& pos);
+
+    void updateTitle();
 
 public:
     EditorMainWindow();

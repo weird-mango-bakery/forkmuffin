@@ -35,4 +35,7 @@ public:
 
     QChar getBlock(int x, int y) const;
     void setBlock(int x, int y, QChar block);
+
+    void clear();
+    void createNew();
 };

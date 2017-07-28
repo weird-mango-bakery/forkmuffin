@@ -8,19 +8,18 @@ const int Level::BLOCK_SIZE = 50;
 const QSize Level::BLOCK_BOX = QSize(Level::BLOCK_SIZE, Level::BLOCK_SIZE);
 
 Level::Level() {
-    // TODO make resizable level instead of hardcoding
-    for (int i = 0; i < 10; ++i) {
-        map << "                ";
-    }
-    blocks['#'] = Block(QColor(255, 255, 0));
+    createNew();
 }
 
 int Level::getWidth() const {
-    return map.first().size() - 1;
+    if (map.isEmpty()) {
+        return 0;
+    }
+    return map.first().size();
 }
 
 int Level::getHeight() const {
-    return map.size() - 1;
+    return map.size();
 }
 
 bool Level::isInside(const QPoint& pos) const {
@@ -46,8 +45,7 @@ void Level::paint(QPainter& painter) const {
 }
 
 void Level::read(const QJsonObject& json) {
-    map.clear();
-    blocks.clear();
+    clear();
     int version = json["version"].toInt(-1);
     if (version == -1) {
         printf("File with invalid version!\n");
@@ -95,3 +93,18 @@ QChar Level::getBlock(int x, int y) const {
 void Level::setBlock(int x, int y, QChar block) {
     map[y][x] = block;
 }
+
+void Level::clear() {
+    map.clear();
+    blocks.clear();
+}
+
+void Level::createNew() {
+    // TODO make resizable level instead of hardcoding
+    clear();
+    for (int i = 0; i < 10; ++i) {
+        map << "                ";
+    }
+    blocks['#'] = Block(QColor(255, 255, 0));
+}
+

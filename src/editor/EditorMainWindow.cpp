@@ -25,32 +25,61 @@ EditorMainWindow::EditorMainWindow(): grid(*this), blockTool(*this) {
     redoAction->setShortcut(QKeySequence("Ctrl+Shift+Z"));
     menuEdit->addAction(redoAction);
     connect(&undoStack, SIGNAL(indexChanged(int)), canvas, SLOT(update()));
+    connect(&undoStack, SIGNAL(cleanChanged(bool)), this, SLOT(updateTitle()));
 
+    updateTitle();
     show();
 }
 
+void EditorMainWindow::on_actionNew_triggered() {
+    path.clear();
+    undoStack.clear();
+    level.createNew();
+    canvas->update();
+    updateTitle();
+}
+
 void EditorMainWindow::on_actionOpen_triggered() {
-    QString path = QFileDialog::getOpenFileName(this, "Open level", getLevelsDir(), "JSON files (*.json)");
-    if (path.isNull()){
+    QString openPath = QFileDialog::getOpenFileName(this, "Open level", getLevelsDir(), "JSON files (*.json)");
+    if (openPath.isNull()){
         return;
     }
 
     QString errorMsg;
-    if (!loadLevel(level, path, &errorMsg)) {
+    if (!loadLevel(level, openPath, &errorMsg)) {
         QMessageBox::critical(this, "Error opening level", errorMsg);
+        return;
+    }
+    path = openPath;
+    updateTitle();
+}
+
+void EditorMainWindow::on_actionSave_triggered() {
+    if (path.isNull()) {
+        on_actionSaveAs_triggered();
+    } else {
+        doSaveLevel(path);
     }
 }
 
 void EditorMainWindow::on_actionSaveAs_triggered() {
-    QString path = QFileDialog::getSaveFileName(this, "Save level as", getLevelsDir(), "JSON files (*.json)");
-    if (path.isNull()){
+    QString savePath = QFileDialog::getSaveFileName(this, "Save level as", getLevelsDir(), "JSON files (*.json)");
+    doSaveLevel(savePath);
+}
+
+void EditorMainWindow::doSaveLevel(const QString& savePath) {
+    if (savePath.isNull()){
         return;
     }
 
     QString errorMsg;
-    if (!saveLevel(level, path, &errorMsg)) {
+    if (!saveLevel(level, savePath, &errorMsg)) {
         QMessageBox::critical(this, "Error saving level", errorMsg);
+        return;
     }
+    path = savePath;
+    undoStack.setClean();
+    updateTitle();
 }
 
 void EditorMainWindow::on_canvas_mouseDrag(const QPointF& delta) {
@@ -77,4 +106,16 @@ const Camera& EditorMainWindow::getCamera() const {
 
 void EditorMainWindow::pushCommand(EditorCommand& command) {
     undoStack.push(&command);
+}
+
+void EditorMainWindow::updateTitle() {
+    if (path.isNull()) {
+        setWindowTitle("* New");
+        return;
+    }
+    QString title = QDir(getLevelsDir()).relativeFilePath(path);
+    if (!undoStack.isClean()) {
+        title = "* " + title;
+    }
+    setWindowTitle(title);
 }
