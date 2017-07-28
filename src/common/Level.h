@@ -33,5 +33,6 @@ public:
     void read(const QJsonObject& json) override;
     void write(QJsonObject& json) const override;
 
-    void toggleBlock(int x, int y);
+    QChar getBlock(int x, int y) const;
+    void setBlock(int x, int y, QChar block);
 };

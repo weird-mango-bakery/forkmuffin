@@ -88,10 +88,10 @@ float Level::getZOrder() const {
     return Z_BACKGROUND;
 }
 
-void Level::toggleBlock(int x, int y) {
-    if (map[y][x] == ' ') {
-        map[y][x] = '#';
-    } else {
-        map[y][x] = ' ';
-    }
+QChar Level::getBlock(int x, int y) const {
+    return map[y][x];
+}
+
+void Level::setBlock(int x, int y, QChar block) {
+    map[y][x] = block;
 }

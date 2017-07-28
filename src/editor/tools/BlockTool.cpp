@@ -8,5 +8,11 @@ void BlockTool::mouseClick(const QPointF& pos) {
     if (!editor.getLevel().isInside(levelPos)) {
         return;
     }
-    editor.getLevel().toggleBlock(levelPos.x(), levelPos.y());
+    int x = levelPos.x();
+    int y = levelPos.y();
+    if (editor.getLevel().getBlock(x, y) == ' ') {
+        editor.getLevel().setBlock(x, y, '#');
+    } else {
+        editor.getLevel().setBlock(x, y, ' ');
+    }
 }
