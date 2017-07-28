@@ -20,8 +20,12 @@ EditorMainWindow::EditorMainWindow(): blockTool(*this) {
 
     connect(canvas, SIGNAL(mouseMove(const QPointF&)), grid, SLOT(mouseMoved(const QPointF&)));
 
-    menuEdit->addAction(undoStack.createUndoAction(this));
-    menuEdit->addAction(undoStack.createRedoAction(this));
+    QAction* undoAction = undoStack.createUndoAction(this);
+    undoAction->setShortcut(QKeySequence("Ctrl+Z"));
+    menuEdit->addAction(undoAction);
+    QAction* redoAction = undoStack.createRedoAction(this);
+    redoAction->setShortcut(QKeySequence("Ctrl+Shift+Z"));
+    menuEdit->addAction(redoAction);
     connect(&undoStack, SIGNAL(indexChanged(int)), canvas, SLOT(update()));
 
     show();
