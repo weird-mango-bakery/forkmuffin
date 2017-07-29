@@ -12,14 +12,21 @@ void PhysicsEngine::process() {
         // special magic so speed won't infinitely grow
         // equivalent to x = x0 + v0*t + a*t*t/2; v = v0 + a*t
         speed += QPointF(xFric, yFric);
+        speed += gravity*0.5;
         pos += speed;
         speed += gravity*0.5;
 
         double x = qBound(bounds.left(), pos.x(), bounds.right()  - object->getSize().width());
         double y = qBound(bounds.top(),  pos.y(), bounds.bottom() - object->getSize().height());
+
         if (x != pos.x()) {
             speed.setX(0);
+            // Freezing at fall with the touch of the wall
+            friction.setY(0.4);
+        }else{
+            friction.setY(0);
         }
+
         if (y != pos.y()) {
             speed.setY(0);
             friction.setX(0.1); // temp const
