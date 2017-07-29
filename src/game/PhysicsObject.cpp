@@ -1,19 +1,29 @@
 #include "PhysicsObject.h"
 
-const QPointF& PhysicsObject::getPos() const {
-    return pos;
-}
+PhysicsObject::PhysicsObject(const QPointF& pos): pos(pos) {}
+
 
 void PhysicsObject::setPos(const QPointF& p) {
     pos = p;
 }
 
-PhysicsObject::PhysicsObject(const QPointF& pos): pos(pos) {}
+void PhysicsObject::setSpeed(const QPointF& s) {
+    speed = s;
+}
+
+void PhysicsObject::setFriction(const QPointF& f) {
+    friction = f;
+}
+
 
 const QPointF& PhysicsObject::getSpeed() const {
     return speed;
 }
 
-void PhysicsObject::setSpeed(const QPointF& s) {
-    speed = s;
+const QPointF& PhysicsObject::getPos() const {
+    return pos;
+}
+
+const QPointF& PhysicsObject::getFriction() const {
+    return friction;
 }
