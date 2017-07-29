@@ -26,6 +26,8 @@ set(GAME_SOURCES
         game/PhysicsObject.h
         game/PhysicsEngine.cpp
         game/PhysicsEngine.h
+        game/Muffin.cpp
+        game/Muffin.h
         )
 
 set(EDITOR_SOURCES

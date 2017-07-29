@@ -1,21 +1,20 @@
 #pragma once
 
-#include "common/Renderable.h"
-#include "game/PhysicsObject.h"
+#include "game/Muffin.h"
 
-class Player: public Renderable, public PhysicsObject {
+class Player {
+private:
+    Muffin muffin;
+
 public:
     explicit Player(const QPointF& pos);
 
-    void paint(QPainter& p) const override;
-    float getZOrder() const override;
+    Muffin& getMuffin();
 
     void moveUp();
     void moveDown();
     void moveLeft();
     void moveRight();
-
-    QSizeF getSize() const override;
 };
 
 

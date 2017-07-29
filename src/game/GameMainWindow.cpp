@@ -10,8 +10,8 @@ GameMainWindow::GameMainWindow(): player(QPointF(230, 175)), engine(QPointF(0, .
 
     loadLevel(level, QCoreApplication::applicationDirPath() + "/../data/levels/test.json");
     canvas->addRenderable(level);
-    canvas->addRenderable(player);
-    engine.addObject(player);
+    canvas->addRenderable(player.getMuffin());
+    engine.addObject(player.getMuffin());
     connect(&timer, SIGNAL(timeout()), SLOT(mainLoop()));
 
     show();
