@@ -15,6 +15,7 @@ GameMainWindow::GameMainWindow(): player(QPointF(230, 175)), engine(GRAVITY) {
     loadLevel(level, QCoreApplication::applicationDirPath() + "/../data/levels/test.json");
     canvas->addRenderable(level);
     canvas->addRenderable(player.getMuffin());
+    canvas->addRenderable(debugLines);
     engine.addObject(player.getMuffin());
     connect(&timer, SIGNAL(timeout()), SLOT(mainLoop()));
 
@@ -27,6 +28,8 @@ GameMainWindow::GameMainWindow(): player(QPointF(230, 175)), engine(GRAVITY) {
 void GameMainWindow::mainLoop() {
     QElapsedTimer spentCounter;
     spentCounter.start();
+
+    debugLines.reset();
 
     double elapsedSec = elapsedCounter.restart() * 0.001;
     // handle input
@@ -57,16 +60,14 @@ void GameMainWindow::mainLoop() {
     engine.setBounds(canvas->rect().adjusted(25, 25, -25, -25));
     engine.process(elapsedPhys);
 
+    debugLines.addLine(QString("elapsed time is %1 sec").arg(elapsedSec));
+    debugLines.addLine(QString("elapsed time for physics is %1 sec").arg(elapsedPhys));
+    debugLines.addLine(QString("time multiplier is %1x").arg(elapsedMods.get()));
+
     //render
     canvas->repaint(); // force repaint of the whole canvas
 
-    statusbar->showMessage(
-        QString("%1 msec total spent in main loop, elapsed time is %2 sec (%3 sec for physics with time x%4)")
-            .arg(spentCounter.elapsed())
-            .arg(elapsedSec)
-            .arg(elapsedPhys)
-            .arg(elapsedMods.get())
-    );
+    statusbar->showMessage(QString("%1 msec total spent in main loop").arg(spentCounter.elapsed()));
 }
 
 void GameMainWindow::keyPressEvent(QKeyEvent* event) {

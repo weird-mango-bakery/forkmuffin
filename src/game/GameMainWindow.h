@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common/Level.h"
+#include "common/DebugLines.h"
 #include "game/Player.h"
 #include "game/PhysicsEngine.h"
 
@@ -17,6 +18,7 @@ private:
     Level level;
     QTimer timer;
     QElapsedTimer elapsedCounter;
+    DebugLines debugLines;
     PhysicsEngine engine;
     QHash<int, bool> keyState;
 
