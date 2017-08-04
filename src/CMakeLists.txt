@@ -64,6 +64,7 @@ set(COMMON_SOURCES
         common/saveload.cpp
         common/saveload.h
         common/Renderable.h
+        common/ValuesSelector.h
         )
 add_library(muffin_common ${COMMON_SOURCES})
 target_link_libraries(muffin_common Qt5::Core Qt5::Widgets)
