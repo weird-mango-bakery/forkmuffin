@@ -28,9 +28,6 @@ bool Level::isInside(const QPoint& pos) const {
 }
 
 void Level::paint(QPainter& painter) const {
-    painter.setBrush(Qt::white);
-    painter.drawEllipse(0, 0, 100, 80);
-
     int y = 0;
     for (QString row : map) {
         int x = 0;
