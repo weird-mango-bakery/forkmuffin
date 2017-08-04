@@ -8,13 +8,13 @@ void PhysicsEngine::process(double elapsed) {
 
         double xFric = -friction.rx() * speed.rx();
         double yFric = -friction.ry() * speed.ry();
-        speed += QPointF(xFric, yFric);
+        QPointF acceleration = gravity + QPointF(xFric, yFric);
 
         // special magic so speed won't infinitely grow
         // equivalent to x = x0 + v0*t + a*t*t/2; v = v0 + a*t
-        speed += gravity*0.5*elapsed;
-        pos += speed*elapsed;
-        speed += gravity*0.5*elapsed;
+        speed += acceleration * 0.5 * elapsed;
+        pos   += speed * elapsed;
+        speed += acceleration * 0.5 * elapsed;
 
         double x = qBound(bounds.left(), pos.x(), bounds.right()  - object->getSize().width());
         double y = qBound(bounds.top(),  pos.y(), bounds.bottom() - object->getSize().height());
@@ -22,14 +22,14 @@ void PhysicsEngine::process(double elapsed) {
         if (x != pos.x()) {
             speed.setX(0);
             // Freezing at fall with the touch of the wall
-            friction.setY(0.4);
+            friction.setY(10);
         }else{
             friction.setY(0);
         }
 
         if (y != pos.y()) {
             speed.setY(0);
-            friction.setX(0.1); // temp const
+            friction.setX(1); // temp const
         }else{
             // Muffin can glide in air without friction
             friction.setX(0);
