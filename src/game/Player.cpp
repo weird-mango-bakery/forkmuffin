@@ -1,26 +1,28 @@
 #include "Player.h"
 
+static const int SPEED = 200;
+
 void Player::moveUp() {
     QPointF speed = muffin.getSpeed();
-    speed.setY(-1);
+    speed.setY(-SPEED);
     muffin.setSpeed(speed);
 }
 
 void Player::moveDown() {
     QPointF speed = muffin.getSpeed();
-    speed.setY(1);
+    speed.setY(SPEED);
     muffin.setSpeed(speed);
 }
 
 void Player::moveLeft() {
     QPointF speed = muffin.getSpeed();
-    speed.setX(-1);
+    speed.setX(-SPEED);
     muffin.setSpeed(speed);
 }
 
 void Player::moveRight() {
     QPointF speed = muffin.getSpeed();
-    speed.setX(1);
+    speed.setX(SPEED);
     muffin.setSpeed(speed);
 }
 

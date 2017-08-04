@@ -1,6 +1,6 @@
 #include "PhysicsEngine.h"
 
-void PhysicsEngine::process() {
+void PhysicsEngine::process(double elapsed) {
     for (PhysicsObject* object : objects) {
         QPointF speed = object->getSpeed();
         QPointF pos = object->getPos();
@@ -8,13 +8,13 @@ void PhysicsEngine::process() {
 
         double xFric = -friction.rx() * speed.rx();
         double yFric = -friction.ry() * speed.ry();
+        speed += QPointF(xFric, yFric);
 
         // special magic so speed won't infinitely grow
         // equivalent to x = x0 + v0*t + a*t*t/2; v = v0 + a*t
-        speed += QPointF(xFric, yFric);
-        speed += gravity*0.5;
-        pos += speed;
-        speed += gravity*0.5;
+        speed += gravity*0.5*elapsed;
+        pos += speed*elapsed;
+        speed += gravity*0.5*elapsed;
 
         double x = qBound(bounds.left(), pos.x(), bounds.right()  - object->getSize().width());
         double y = qBound(bounds.top(),  pos.y(), bounds.bottom() - object->getSize().height());

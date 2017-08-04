@@ -14,7 +14,7 @@ private:
 public:
     explicit PhysicsEngine(const QPointF& gravity);
 
-    void process();
+    void process(double elapsed);
 
     void setBounds(const QRectF& r);
     void addObject(PhysicsObject& obj);

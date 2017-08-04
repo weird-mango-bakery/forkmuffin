@@ -2,10 +2,11 @@
 
 #include "common/saveload.h"
 
-#include <QElapsedTimer>
 #include <QKeyEvent>
 
-GameMainWindow::GameMainWindow(): player(QPointF(230, 175)), engine(QPointF(0, .1)) {
+static const QPointF GRAVITY(0, 600);
+
+GameMainWindow::GameMainWindow(): player(QPointF(230, 175)), engine(GRAVITY) {
     setupUi(this);
 
     loadLevel(level, QCoreApplication::applicationDirPath() + "/../data/levels/test.json");
@@ -15,6 +16,7 @@ GameMainWindow::GameMainWindow(): player(QPointF(230, 175)), engine(QPointF(0, .
     connect(&timer, SIGNAL(timeout()), SLOT(mainLoop()));
 
     show();
+    elapsedCounter.start();
     timer.start(33);
 }
 
@@ -22,6 +24,7 @@ void GameMainWindow::mainLoop() {
     QElapsedTimer spentCounter;
     spentCounter.start();
 
+    double elapsedSec = elapsedCounter.restart() * 0.001;
     // handle input
     if (isKeyPressed(Qt::Key_Up) || isKeyPressed(Qt::Key_W)) {
         player.moveUp();
@@ -38,12 +41,12 @@ void GameMainWindow::mainLoop() {
 
     // process physics
     engine.setBounds(canvas->rect().adjusted(25, 25, -25, -25));
-    engine.process();
+    engine.process(elapsedSec);
 
     //render
     canvas->repaint(); // force repaint of the whole canvas
 
-    statusbar->showMessage(QString("%1 msec total spent in main loop").arg(spentCounter.elapsed()));
+    statusbar->showMessage(QString("%1 msec total spent in main loop, elapsed time is %2 sec").arg(spentCounter.elapsed()).arg(elapsedSec));
 }
 
 void GameMainWindow::keyPressEvent(QKeyEvent* event) {

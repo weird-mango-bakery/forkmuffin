@@ -6,6 +6,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QElapsedTimer>
 
 #include "ui_game.h"
 
@@ -15,6 +16,7 @@ private:
     Player player;
     Level level;
     QTimer timer;
+    QElapsedTimer elapsedCounter;
     PhysicsEngine engine;
     QHash<int, bool> keyState;
 
