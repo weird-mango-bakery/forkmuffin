@@ -1,14 +1,13 @@
 #include "EditorCanvasWidget.h"
 
 #include <QWheelEvent>
-#include <QMouseEvent>
 
 EditorCanvasWidget::EditorCanvasWidget(QWidget* parent): CanvasWidget(parent) {
     setMouseTracking(true);
 }
 
 void EditorCanvasWidget::wheelEvent(QWheelEvent* event) {
-    emit mouseWheel(event->delta()/120.f);
+    emit mouseWheel(event->angleDelta().y()/120.f);
 }
 
 void EditorCanvasWidget::mouseMoveEvent(QMouseEvent* event) {

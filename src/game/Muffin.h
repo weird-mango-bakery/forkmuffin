@@ -3,9 +3,11 @@
 #include "common/Renderable.h"
 #include "game/PhysicsObject.h"
 
+//! The object that represents the main hero.
 class Muffin: public Renderable, public PhysicsObject {
 public:
-    Muffin(const QPointF& pos);
+    //! Creates muffin at the specified position.
+    explicit Muffin(const QPointF& pos);
 
     void paint(QPainter& p) const override;
     float getZOrder() const override;

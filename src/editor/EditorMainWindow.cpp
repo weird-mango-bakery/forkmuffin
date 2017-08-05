@@ -6,7 +6,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-QString EditorMainWindow::getLevelsDir() const {
+QString EditorMainWindow::getLevelsDir() {
     return QCoreApplication::applicationDirPath() + "/../data/levels";
 }
 

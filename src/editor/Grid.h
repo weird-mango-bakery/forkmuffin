@@ -6,10 +6,13 @@
 
 class EditorMainWindow;
 
+//! A grid to display layer coordinates in editor.
 class Grid: public QObject, public Renderable {
 Q_OBJECT
 private:
+    //! The editor.
     const EditorMainWindow& editor;
+    //! The current mouse position in screen coordinates.
     QPointF mousePos;
 
 public:
@@ -20,5 +23,7 @@ public:
     float getZOrder() const override;
 
 public slots:
+    //! Slot to update the current mouse position.
+    //! \param pos mouse position in screen coordinates.
     void mouseMoved(const QPointF& pos);
 };

@@ -40,6 +40,6 @@ void CanvasWidget::zoomCamera(float s, const QPointF& pos) {
     camera.setScale(camera.getScale() * s);
 }
 
-void CanvasWidget::moveCamera(const QPointF& p) {
-    camera.setTranslation(camera.getTranslation() + p);
+void CanvasWidget::moveCamera(const QPointF& delta) {
+    camera.setTranslation(camera.getTranslation() + delta);
 }
