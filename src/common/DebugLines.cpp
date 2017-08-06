@@ -2,7 +2,7 @@
 #include <QPainter>
 
 void DebugLines::paint(QPainter& p) const {
-    QRect rect = QRect(10, 10, 200, 50);
+    QRect rect = QRect(10, 10, 200, 60);
     p.setPen(Qt::darkGreen);
     p.drawText(rect, lines);
 }
