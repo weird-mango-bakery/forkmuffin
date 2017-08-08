@@ -1,9 +1,9 @@
 #include "Level.h"
 
+#include "common/TextureManager.h"
 #include <QPainter>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <QtCore/QCoreApplication>
 
 const int Level::BLOCK_SIZE = 50;
 const QSize Level::BLOCK_BOX = QSize(Level::BLOCK_SIZE, Level::BLOCK_SIZE);
@@ -29,6 +29,7 @@ bool Level::isInside(const QPoint& pos) const {
 }
 
 void Level::paint(QPainter& painter) const {
+    TextureManager& manager = TextureManager::get();
     int y = 0;
     for (QString row : map) {
         int x = 0;
@@ -36,9 +37,7 @@ void Level::paint(QPainter& painter) const {
             if (blocks.contains(chr)) {
                 // Maybe problem with applicationDirPath(). If u can't see textures
                 // when u r placing block - it is problem with dirPath
-                painter.drawImage(QRect(QPoint(x, y) * BLOCK_SIZE, BLOCK_BOX),
-                                  QImage(QString("%1/../data/textures/grass.png")
-                                                 .arg(QCoreApplication::applicationDirPath())));
+                painter.drawImage(QRect(QPoint(x, y) * BLOCK_SIZE, BLOCK_BOX), manager.getImage("grass.png"));
             }
             x++;
         }
