@@ -9,7 +9,7 @@ static const QPointF GRAVITY(0, 600);
 
 ValuesSelector<double> elapsedMods({0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 0.75, 1, 2, 3, 4, 5, 6, 7, 8});
 
-GameMainWindow::GameMainWindow(): player(QPointF(230, 175)), engine(GRAVITY) {
+GameMainWindow::GameMainWindow(): player(QPointF(230, 175)), engine(GRAVITY, level) {
     setupUi(this);
 
     loadLevel(level, QCoreApplication::applicationDirPath() + "/../data/levels/test.json");
@@ -58,7 +58,9 @@ void GameMainWindow::mainLoop() {
 
     // process physics
     engine.setBounds(canvas->rect().adjusted(25, 25, -25, -25));
-    engine.process(elapsedPhys);
+    for (int i = 0; i < 10; ++i) {
+        engine.process(elapsedPhys/10);
+    }
 
     debugLines.addLine(QString("elapsed time is %1 sec").arg(elapsedSec));
     debugLines.addLine(QString("elapsed time for physics is %1 sec").arg(elapsedPhys));

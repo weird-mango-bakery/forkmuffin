@@ -1,9 +1,11 @@
 #pragma once
 
-#include "PhysicsObject.h"
 #include <QList>
 #include <QPointF>
 #include <QRectF>
+
+class PhysicsObject;
+class Level;
 
 //! The class to handle physics interaction between objects.
 class PhysicsEngine {
@@ -14,10 +16,12 @@ private:
     QRectF bounds;
     //! The global gravity acceleration.
     QPointF gravity;
+    //! The level for objects to collide with.
+    const Level& level;
 
 public:
     //! Creates engine with specified gravity acceleration.
-    explicit PhysicsEngine(const QPointF& gravity);
+    PhysicsEngine(const QPointF& gravity, const Level& level);
 
     //! Process physics for the elapsed period of the time.
     //! \param elapsed passed period of time (in seconds).
