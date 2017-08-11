@@ -51,6 +51,7 @@ void EditorMainWindow::on_actionOpen_triggered() {
         return;
     }
     path = openPath;
+    undoStack.clear();
     updateTitle();
 }
 
