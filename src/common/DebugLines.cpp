@@ -3,7 +3,7 @@
 
 void DebugLines::paint(QPainter& p) const {
     QRect rect = QRect(10, 10, 200, 60);
-    p.setPen(Qt::darkGreen);
+    p.setPen(Qt::yellow);
     p.drawText(rect, lines);
 }
 

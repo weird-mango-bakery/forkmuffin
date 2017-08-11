@@ -8,7 +8,7 @@ void CanvasWidget::paintEvent(QPaintEvent* event) {
     QPainter p(this);
     camera.apply(p);
 
-    p.fillRect(rect(), Qt::white);
+    p.fillRect(rect(), Qt::lightGray);
 
     QMapIterator<float, const Renderable*> it(renderables);
     it.toBack();
