@@ -1,14 +1,17 @@
 #include "TextureManager.h"
 
 #include <QCoreApplication>
+#include <QImageReader>
 
 const QImage& TextureManager::getImage(const QString& name) {
     QString path = QString("%1/%2").arg(getTextureDir()).arg(name);
     if (imgs.contains(path)) {
         return imgs[path];
     }
-    QImage img(path);
+    QImageReader reader(path);
+    QImage img = reader.read();
     if (img.isNull()) {
+        fprintf(stderr, "*** cannot load image '%s': %s\n", path.toUtf8().data(), reader.errorString().toUtf8().data());
         return getInvalid();
     }
     imgs[path] = img;
