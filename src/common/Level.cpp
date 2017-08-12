@@ -1,6 +1,7 @@
 #include "Level.h"
 
 #include "common/TextureManager.h"
+#include "common/StrayImage.h"
 #include <QPainter>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -58,6 +59,10 @@ void Level::read(const QJsonObject& json) {
     for (QJsonValue row : json["map"].toArray()) {
         map << row.toString();
     }
+    for (QJsonValue stray : json["stray_images"].toArray()) {
+        strays << new StrayImage();
+        strays.last()->read(stray.toObject());
+    }
 }
 
 void Level::write(QJsonObject& json) const {
@@ -73,13 +78,25 @@ void Level::write(QJsonObject& json) const {
     json["blocks"] = newBlocks;
 
     QJsonArray newMap;
-    for (QString row : map){
+    for (const QString& row : map){
         newMap << row;
     }
     json["map"] = newMap;
+
+    QJsonArray newStrays;
+    for (const StrayImage* stray : strays) {
+        QJsonObject object;
+        stray->write(object);
+        newStrays << object;
+    }
+    json["stray_images"] = newStrays;
 }
 
 Level::Level(): Renderable(Z_BACKGROUND) {}
+
+Level::~Level() {
+    clear();
+}
 
 QChar Level::getBlock(const QPoint& pos) const {
     return map[pos.y()][pos.x()];
@@ -92,6 +109,10 @@ void Level::setBlock(const QPoint& pos, QChar block) {
 void Level::clear() {
     map.clear();
     blocks.clear();
+    for (StrayImage* stray : strays) {
+        delete stray;
+    }
+    strays.clear();
 }
 
 void Level::createNew() {
@@ -112,4 +133,3 @@ void Level::updateBlocks(const QHash<QChar, QString>& texturesForBlocks) {
         blocks[blockSymbol] = Block(texturesForBlocks[blockSymbol]);
     }
 }
-

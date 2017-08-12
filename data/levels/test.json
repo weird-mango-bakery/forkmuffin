@@ -17,5 +17,25 @@
         "#              #",
         " ############## "
     ],
+    "stray_images": [
+        {
+            "height": 158,
+            "name": "neko1_1",
+            "pos_x": 50,
+            "pos_y": 50,
+            "texture": "neko1.png",
+            "width": 142,
+            "z_level": -0.75
+        },
+        {
+            "height": 205,
+            "name": "neko2_1",
+            "pos_x": 300,
+            "pos_y": 150,
+            "texture": "neko2.png",
+            "width": 164,
+            "z_level": 0.75
+        }
+    ],
     "version": 1
 }

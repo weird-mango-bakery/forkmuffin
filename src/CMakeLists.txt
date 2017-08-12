@@ -82,6 +82,8 @@ set(COMMON_SOURCES
         common/TextureManager.h
         common/RenderManager.cpp
         common/RenderManager.h
+        common/StrayImage.cpp
+        common/StrayImage.h
         )
 add_library(muffin_common ${COMMON_SOURCES})
 target_link_libraries(muffin_common Qt5::Core Qt5::Widgets)

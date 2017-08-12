@@ -11,6 +11,7 @@
 
 class QPainter;
 class QPoint;
+class StrayImage;
 
 //! Level of the game.
 class Level : public Serializable, public Renderable {
@@ -19,6 +20,8 @@ private:
     QList<QString> map;
     //! Map from char to level block.
     QHash<QChar, Block> blocks;
+    //! List of static images.
+    QList<StrayImage*> strays;
 
 public:
     //! Block side size in pixels, in world coordinates.
@@ -28,6 +31,12 @@ public:
 
     //! Creates empty level with no blocks.
     Level();
+    //! Destroys level and all its objects.
+    ~Level() override;
+    //! Levels cannot be assigned.
+    Level& operator=(const Level& other) = delete;
+    //! Levels cannot be copy-constructed.
+    Level(const Level& other) = delete;
 
     //! Returns level width in blocks.
     int getWidth() const;
