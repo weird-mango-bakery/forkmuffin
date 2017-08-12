@@ -8,10 +8,6 @@
 const int Level::BLOCK_SIZE = 50;
 const QSize Level::BLOCK_BOX = QSize(Level::BLOCK_SIZE, Level::BLOCK_SIZE);
 
-Level::Level() {
-    createNew();
-}
-
 int Level::getWidth() const {
     if (map.isEmpty()) {
         return 0;
@@ -37,7 +33,7 @@ void Level::paint(QPainter& painter) const {
             if (blocks.contains(chr)) {
                 // Maybe problem with applicationDirPath(). If u can't see textures
                 // when u r placing block - it is problem with dirPath
-                painter.drawImage(QRect(QPoint(x, y) * BLOCK_SIZE, BLOCK_BOX), manager.getImage("grass.png"));
+                painter.drawImage(QRect(QPoint(x, y) * BLOCK_SIZE, BLOCK_BOX), manager.getImage(blocks[chr].getTexture()));
             }
             x++;
         }
@@ -87,12 +83,12 @@ float Level::getZOrder() const {
     return Z_BACKGROUND;
 }
 
-QChar Level::getBlock(int x, int y) const {
-    return map[y][x];
+QChar Level::getBlock(const QPoint& pos) const {
+    return map[pos.y()][pos.x()];
 }
 
-void Level::setBlock(int x, int y, QChar block) {
-    map[y][x] = block;
+void Level::setBlock(const QPoint& pos, QChar block) {
+    map[pos.y()][pos.x()] = block;
 }
 
 void Level::clear() {
@@ -106,6 +102,16 @@ void Level::createNew() {
     for (int i = 0; i < 10; ++i) {
         map << "                ";
     }
-    blocks['#'] = Block(QColor(255, 255, 0));
+}
+
+bool Level::isEmpty(const QPoint& pos) const {
+    return getBlock(pos) == ' ';
+}
+
+void Level::updateBlocks(const QHash<QChar, QString>& texturesForBlocks) {
+    blocks.clear();
+    for (QChar blockSymbol : texturesForBlocks.keys()) {
+        blocks[blockSymbol] = Block(texturesForBlocks[blockSymbol]);
+    }
 }
 

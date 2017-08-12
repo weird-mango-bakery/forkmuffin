@@ -4,29 +4,28 @@
 #include <QJsonObject>
 #include "common/Block.h"
 
-void testColorRead(const QString& s, const QColor& c){
+void testTextureRead(const QString& s){
     Block b;
     QJsonObject json({
-         {"color", s}
+         {"texture", s}
     });
     b.read(json);
-    QColor color = b.getColor();
-    EXPECT_TRUE(color.isValid());
-    EXPECT_EQ(color, c);
+    QString textureName = b.getTexture();
+    EXPECT_EQ(textureName, s);
 }
 
-void testColorWrite(const QString& s, const QColor& c){
-    Block b(c);
+void testTextureWrite(const QString& s){
+    Block b(s);
     QJsonObject json;
     b.write(json);
-    EXPECT_TRUE(json.contains("color"));
-    EXPECT_EQ(json["color"].toString(), s);
+    EXPECT_TRUE(json.contains("texture"));
+    EXPECT_EQ(json["texture"].toString(), s);
 }
 
-void testColorReadWrite(const QString& s){
+void testTextureReadWrite(const QString& s){
     Block b;
     QJsonObject original({
-         {"color", s}
+         {"texture", s}
     });
     b.read(original);
 
@@ -38,19 +37,13 @@ void testColorReadWrite(const QString& s){
 
 
 TEST(block, save) {
-    testColorWrite("000000", {0, 0, 0});
-    testColorWrite("ff0080", {255, 0, 128});
-    testColorWrite("012345", {1, 35, 69});
+    testTextureWrite("block_#_grass.png");
 }
 
 TEST(block, load) {
-    testColorRead("000000", {0, 0, 0});
-    testColorRead("ff0080", {255, 0, 128});
-    testColorRead("012345", {1, 35, 69});
+    testTextureRead("block_#_grass.png");
 }
 
 TEST(block, consistency) {
-    testColorReadWrite("000000");
-    testColorReadWrite("ff0080");
-    testColorReadWrite("012345");
+    testTextureReadWrite("block_#_grass.png");
 }

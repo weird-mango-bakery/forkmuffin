@@ -16,7 +16,7 @@ TEST(level, load) {
     QJsonObject json{
         {"blocks",  QJsonObject{
             {"#", QJsonObject{
-                {"color", "801f1f"}
+                {"texture", "block_#_grass.png"}
             }}
         }},
         {"map", QJsonArray{
@@ -33,7 +33,7 @@ TEST(level, consistency) {
     QByteArray originalData = R"({
     "blocks": {
         "#": {
-            "color": "801f1f"
+            "texture": "block_#_grass.png"
         }
     },
     "map": [

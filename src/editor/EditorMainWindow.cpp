@@ -2,6 +2,8 @@
 
 #include "common/saveload.h"
 #include "editor/commands/EditorCommand.h"
+#include "editor/widgets/BlockWidget.h"
+#include "editor/widgets/BlockSelectorWidget.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -10,24 +12,39 @@ QString EditorMainWindow::getLevelsDir() {
     return QCoreApplication::applicationDirPath() + "/../data/levels";
 }
 
-EditorMainWindow::EditorMainWindow(): grid(*this), blockTool(*this) {
+EditorMainWindow::EditorMainWindow(): grid(*this), blockTool(*this), blockSelectorWidget(new BlockSelectorWidget(this)) {
+    // create UI elements and autoconnect signals
+    blockSelectorWidget->setObjectName("blockSelectorWidget");
     setupUi(this);
 
+    // dock widgets
+    addDockWidget(Qt::LeftDockWidgetArea, blockSelectorWidget);
+    menuView->addAction(blockSelectorWidget->toggleViewAction());
+
+    // all renderables
     canvas->addRenderable(level);
     canvas->addRenderable(grid);
 
+    // mouse move for grid
     connect(canvas, SIGNAL(mouseMove(const QPointF&)), &grid, SLOT(mouseMoved(const QPointF&)));
 
+    // undo/redo menu items
     QAction* undoAction = undoStack.createUndoAction(this);
     undoAction->setShortcut(QKeySequence("Ctrl+Z"));
     menuEdit->addAction(undoAction);
     QAction* redoAction = undoStack.createRedoAction(this);
     redoAction->setShortcut(QKeySequence("Ctrl+Shift+Z"));
     menuEdit->addAction(redoAction);
+    // undo stack connections
     connect(&undoStack, SIGNAL(indexChanged(int)), canvas, SLOT(update()));
     connect(&undoStack, SIGNAL(cleanChanged(bool)), this, SLOT(updateTitle()));
 
-    updateTitle();
+    // selecting random block
+    blockSelectorWidget->getLevelBlocks().values()[0]->clicked();
+    // initialize editor with new level
+    on_actionNew_triggered();
+
+    // finally, show the window
     show();
 }
 
@@ -35,8 +52,17 @@ void EditorMainWindow::on_actionNew_triggered() {
     path.clear();
     undoStack.clear();
     level.createNew();
+    updateLevelBlocks();
     canvas->update();
     updateTitle();
+}
+
+void EditorMainWindow::updateLevelBlocks() {
+    QHash<QChar, QString> textures;
+    for (BlockWidget* blockWidget : blockSelectorWidget->getLevelBlocks().values()) {
+        textures[blockWidget->getSymbol()] = blockWidget->getTextureName();
+    }
+    level.updateBlocks(textures);
 }
 
 void EditorMainWindow::on_actionOpen_triggered() {
@@ -50,6 +76,7 @@ void EditorMainWindow::on_actionOpen_triggered() {
         QMessageBox::critical(this, "Error opening level", errorMsg);
         return;
     }
+    updateLevelBlocks();
     path = openPath;
     undoStack.clear();
     updateTitle();
@@ -123,4 +150,13 @@ void EditorMainWindow::updateTitle() {
         title = "* " + title;
     }
     setWindowTitle(title);
+}
+
+void EditorMainWindow::on_blockSelectorWidget_blockSelected(QChar chr) {
+    currentBlock = chr;
+    blockSelectorWidget->selectBlock(chr);
+}
+
+QChar EditorMainWindow::getCurrentBlock() const {
+    return currentBlock;
 }

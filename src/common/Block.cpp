@@ -5,15 +5,15 @@
 #include <QJsonObject>
 
 void Block::read(const QJsonObject& json) {
-    color = stringToColor(json["color"].toString());
+    textureName = json["texture"].toString();
 }
 
 void Block::write(QJsonObject& json) const {
-    json["color"] = colorToString(color);
+    json["texture"] = textureName;
 }
 
-const QColor& Block::getColor() const {
-    return color;
+const QString& Block::getTexture() const {
+    return textureName;
 }
 
-Block::Block(const QColor& color): color(color) {}
+Block::Block(const QString& texture): textureName(texture) {}

@@ -1,7 +1,7 @@
 {
     "blocks": {
         "#": {
-            "color": "801f1f"
+            "texture": "block_#_grass.png"
         }
     },
     "map": [

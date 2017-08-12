@@ -45,8 +45,18 @@ set(EDITOR_SOURCES
         editor/tools/BlockTool.h
         editor/commands/EditorCommand.cpp
         editor/commands/EditorCommand.h
-        editor/commands/ToggleBlockCommand.cpp
-        editor/commands/ToggleBlockCommand.h
+        editor/widgets/BlockSelectorWidget.cpp
+        editor/widgets/BlockSelectorWidget.h
+        editor/widgets/BlockWidget.cpp
+        editor/widgets/BlockWidget.h
+        editor/widgets/block_selector.ui
+        editor/widgets/block.ui
+        editor/commands/EraseBlockCommand.cpp
+        editor/commands/EraseBlockCommand.h
+        editor/commands/PlaceBlockCommand.cpp
+        editor/commands/PlaceBlockCommand.h
+        editor/commands/PlaceCurrentBlockCommand.cpp
+        editor/commands/PlaceCurrentBlockCommand.h
         )
 
 set(COMMON_SOURCES

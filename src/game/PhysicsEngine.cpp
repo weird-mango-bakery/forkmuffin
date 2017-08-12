@@ -27,7 +27,7 @@ void PhysicsEngine::process(double elapsed) {
         QRectF objectRect(pos, object->getSize());
         for (int levelY = 0; levelY < level.getHeight(); ++levelY) {
             for (int levelX = 0; levelX < level.getWidth(); ++levelX) {
-                if (level.getBlock(levelX, levelY) != ' ') {
+                if (!level.isEmpty(QPoint(levelX, levelY))) {
                     const QPointF& levelPoint = Camera::levelToWorld(QPoint(levelX, levelY));
                     QRectF levelBlock(levelPoint, Level::BLOCK_BOX);
                     QRectF intersect = levelBlock.intersected(objectRect);

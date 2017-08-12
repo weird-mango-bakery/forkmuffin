@@ -26,8 +26,8 @@ public:
     //! Simply QSize(BLOCK_SIZE, BLOCK_SIZE) for convenience.
     static const QSize BLOCK_BOX;
 
-    //! Creates empty level by calling createNew().
-    Level();
+    //! Creates empty level with no blocks.
+    Level() = default;
 
     //! Returns level width in blocks.
     int getWidth() const;
@@ -37,16 +37,25 @@ public:
     //! \param pos position in level coordinates.
     bool isInside(const QPoint& pos) const;
 
+    //! Checks if there are no blocks at the specified coordinates.
+    //! \param pos position in level coordinates.
+    bool isEmpty(const QPoint& pos) const;
+
     void paint(QPainter& painter) const override;
     float getZOrder() const override;
 
     void read(const QJsonObject& json) override;
     void write(QJsonObject& json) const override;
 
-    //! Returns level block char at (x, y) in level coordinates.
-    QChar getBlock(int x, int y) const;
-    //! Sets level block char at (x, y) in level coordinates.
-    void setBlock(int x, int y, QChar block);
+    //!  Returns level block char at the specified coordinates.
+    //! \param pos position in level coordinates.
+    QChar getBlock(const QPoint& pos) const;
+    //! Sets level block char at the specified coordinates.
+    //! \param pos position in level coordinates.
+    void setBlock(const QPoint& pos, QChar block);
+    //! Fills level blocks information from the specified map.
+    //! \param texturesForBlocks map with char-to-texture binding.
+    void updateBlocks(const QHash<QChar, QString>& texturesForBlocks);
 
     //! Removes all lines on map and all block type on block.
     void clear();

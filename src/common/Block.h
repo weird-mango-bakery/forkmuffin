@@ -1,23 +1,23 @@
 #pragma once
 
 #include "Serializable.h"
-#include <QColor>
+#include <QString>
 
-//! Colored block of the level.
+//! Textured block of the level.
 class Block : public Serializable {
 private:
-    //! Color of the block.
-    QColor color;
+    //! Texture name of the block.
+    QString textureName;
 
 public:
     void read(const QJsonObject& json) override;
     void write(QJsonObject& json) const override;
-    //! Returns color of the block.
-    const QColor& getColor() const;
+    //! Returns texture name of the block.
+    const QString& getTexture() const;
 
-    //! Creates block with specified color.
-    //! \param color color of the created block.
-    explicit Block(const QColor& color);
+    //! Creates block with specified texture name.
+    //! \param texture texture name of the created block.
+    explicit Block(const QString& texture);
 
     Block() = default;
 };
