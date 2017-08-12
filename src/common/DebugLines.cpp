@@ -7,9 +7,7 @@ void DebugLines::paint(QPainter& p) const {
     p.drawText(rect, lines);
 }
 
-float DebugLines::getZOrder() const {
-    return Z_DEBUG;
-}
+DebugLines::DebugLines(): Renderable(Z_DEBUG) {}
 
 void DebugLines::reset() {
     lines.clear();

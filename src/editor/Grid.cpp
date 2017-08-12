@@ -5,7 +5,7 @@
 #include "editor/EditorMainWindow.h"
 #include <QPainter>
 
-Grid::Grid(const EditorMainWindow& editor): editor(editor) {}
+Grid::Grid(const EditorMainWindow& editor): Renderable(Z_FOREGROUND), editor(editor) {}
 
 void Grid::paint(QPainter& p) const {
     p.setPen(QPen(Qt::darkBlue, 2));
@@ -21,10 +21,6 @@ void Grid::paint(QPainter& p) const {
     p.setPen(QPen(Qt::green, 4));
     QPointF pos = editor.getCamera().levelToWorld(editor.getCamera().screenToLevel(mousePos));
     p.drawRect(QRectF(pos, Level::BLOCK_BOX));
-}
-
-float Grid::getZOrder() const {
-    return Z_FOREGROUND;
 }
 
 void Grid::mouseMoved(const QPointF& pos) {

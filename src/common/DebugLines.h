@@ -11,7 +11,7 @@ private:
 
 public:
     void paint(QPainter& p) const override;
-    float getZOrder() const override;
+    DebugLines();
 
     //! Remove all lines.
     void reset();

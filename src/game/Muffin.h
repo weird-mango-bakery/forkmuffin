@@ -10,7 +10,6 @@ public:
     explicit Muffin(const QPointF& pos);
 
     void paint(QPainter& p) const override;
-    float getZOrder() const override;
     QSizeF getSize() const override;
 };
 

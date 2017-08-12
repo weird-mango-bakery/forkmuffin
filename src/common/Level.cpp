@@ -79,9 +79,7 @@ void Level::write(QJsonObject& json) const {
     json["map"] = newMap;
 }
 
-float Level::getZOrder() const {
-    return Z_BACKGROUND;
-}
+Level::Level(): Renderable(Z_BACKGROUND) {}
 
 QChar Level::getBlock(const QPoint& pos) const {
     return map[pos.y()][pos.x()];

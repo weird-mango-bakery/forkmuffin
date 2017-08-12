@@ -20,8 +20,6 @@ public:
 
     void paint(QPainter& p) const override;
 
-    float getZOrder() const override;
-
 public slots:
     //! Slot to update the current mouse position.
     //! \param pos mouse position in screen coordinates.

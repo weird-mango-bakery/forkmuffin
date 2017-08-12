@@ -27,7 +27,7 @@ public:
     static const QSize BLOCK_BOX;
 
     //! Creates empty level with no blocks.
-    Level() = default;
+    Level();
 
     //! Returns level width in blocks.
     int getWidth() const;
@@ -42,7 +42,6 @@ public:
     bool isEmpty(const QPoint& pos) const;
 
     void paint(QPainter& painter) const override;
-    float getZOrder() const override;
 
     void read(const QJsonObject& json) override;
     void write(QJsonObject& json) const override;

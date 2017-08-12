@@ -21,10 +21,6 @@ EditorMainWindow::EditorMainWindow(): grid(*this), blockTool(*this), blockSelect
     addDockWidget(Qt::LeftDockWidgetArea, blockSelectorWidget);
     menuView->addAction(blockSelectorWidget->toggleViewAction());
 
-    // all renderables
-    canvas->addRenderable(level);
-    canvas->addRenderable(grid);
-
     // mouse move for grid
     connect(canvas, SIGNAL(mouseMove(const QPointF&)), &grid, SLOT(mouseMoved(const QPointF&)));
 

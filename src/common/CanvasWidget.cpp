@@ -1,6 +1,7 @@
 #include "CanvasWidget.h"
 
 #include "common/Level.h"
+#include "common/RenderManager.h"
 
 #include <QPainter>
 
@@ -10,14 +11,7 @@ void CanvasWidget::paintEvent(QPaintEvent* event) {
 
     p.fillRect(rect(), Qt::lightGray);
 
-    QMapIterator<float, const Renderable*> it(renderables);
-    it.toBack();
-    while(it.hasPrevious()) {
-        it.previous();
-        p.save();
-        it.value()->paint(p);
-        p.restore();
-    }
+    RenderManager::get().paint(p);
 }
 
 CanvasWidget::CanvasWidget(QWidget* parent): QWidget(parent) {
@@ -25,10 +19,6 @@ CanvasWidget::CanvasWidget(QWidget* parent): QWidget(parent) {
 
 const Camera& CanvasWidget::getCamera() const {
     return camera;
-}
-
-void CanvasWidget::addRenderable(const Renderable& item) {
-    renderables.insert(item.getZOrder(), &item);
 }
 
 void CanvasWidget::zoomCamera(float s, const QPointF& pos) {

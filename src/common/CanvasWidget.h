@@ -3,16 +3,11 @@
 #include "common/Camera.h"
 
 #include <QWidget>
-#include <QMultiMap>
-
-class Renderable;
 
 //! Widget that draws renderables according to their Z-order (from higher to lower).
 class CanvasWidget : public QWidget {
 Q_OBJECT
 private:
-    //! Render queue.
-    QMultiMap<float, const Renderable*> renderables;
     //! Camera of the canvas.
     Camera camera;
 
@@ -26,10 +21,6 @@ public slots:
     void moveCamera(const QPointF& delta);
 
 public:
-    //! Adds a renderable to the render queue.
-    //! \param item the new renderable.
-    void addRenderable(const Renderable& item);
-
     //! Creates widget with given parent.
     //! \param parent parent widget or nullptr for widgets without parent.
     explicit CanvasWidget(QWidget* parent);
