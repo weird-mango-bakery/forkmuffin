@@ -11,6 +11,7 @@
 
 class EditorCommand;
 class BlockSelectorWidget;
+class StraySelectorWidget;
 
 //! Main window of the editor.
 class EditorMainWindow : public QMainWindow, private Ui::EditorMainWindow {
@@ -30,6 +31,8 @@ private:
     QString path;
     //! The dockable widget with list of available blocks to select.
     BlockSelectorWidget* blockSelectorWidget;
+    //! The dockable widget with list of available stray textures to select and modify.
+    StraySelectorWidget* straySelectorWidget;
 
     //! The current block symbol.
     QChar currentBlock;

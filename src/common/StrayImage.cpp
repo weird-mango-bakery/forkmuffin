@@ -28,3 +28,27 @@ void StrayImage::write(QJsonObject& json) const {
     json["texture"] = texture;
     json["z_level"] = getZOrder();
 }
+
+const QString& StrayImage::getName() const {
+    return name;
+}
+
+const QPoint& StrayImage::getPos() const {
+    return pos;
+}
+
+const QSize& StrayImage::getSize() const {
+    return size;
+}
+
+const QString& StrayImage::getTexture() const {
+    return texture;
+}
+
+void StrayImage::setPos(const QPoint& p) {
+    pos = p;
+}
+
+void StrayImage::setSize(const QSize& s) {
+    size = s;
+}

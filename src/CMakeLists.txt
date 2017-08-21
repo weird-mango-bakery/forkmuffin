@@ -57,6 +57,9 @@ set(EDITOR_SOURCES
         editor/commands/PlaceBlockCommand.h
         editor/commands/PlaceCurrentBlockCommand.cpp
         editor/commands/PlaceCurrentBlockCommand.h
+        editor/widgets/StraySelectorWidget.cpp
+        editor/widgets/StraySelectorWidget.h
+        editor/widgets/stray_images.ui
         )
 
 set(COMMON_SOURCES

@@ -38,6 +38,8 @@ public:
     //! Levels cannot be copy-constructed.
     Level(const Level& other) = delete;
 
+    //! Returns list of stray images on the level.
+    const QList<StrayImage*>& getStrays() const;
     //! Returns level width in blocks.
     int getWidth() const;
     //! Returns level height in blocks.

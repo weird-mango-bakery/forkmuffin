@@ -4,6 +4,7 @@
 #include "editor/commands/EditorCommand.h"
 #include "editor/widgets/BlockWidget.h"
 #include "editor/widgets/BlockSelectorWidget.h"
+#include "editor/widgets/StraySelectorWidget.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -12,14 +13,22 @@ QString EditorMainWindow::getLevelsDir() {
     return QCoreApplication::applicationDirPath() + "/../data/levels";
 }
 
-EditorMainWindow::EditorMainWindow(): grid(*this), blockTool(*this), blockSelectorWidget(new BlockSelectorWidget(this)) {
+EditorMainWindow::EditorMainWindow()
+    : grid(*this)
+    , blockTool(*this)
+    , blockSelectorWidget(new BlockSelectorWidget(this))
+    , straySelectorWidget(new StraySelectorWidget(*this))
+{
     // create UI elements and autoconnect signals
     blockSelectorWidget->setObjectName("blockSelectorWidget");
+    straySelectorWidget->setObjectName("straySelectorWidget");
     setupUi(this);
 
     // dock widgets
     addDockWidget(Qt::LeftDockWidgetArea, blockSelectorWidget);
+    addDockWidget(Qt::RightDockWidgetArea, straySelectorWidget);
     menuView->addAction(blockSelectorWidget->toggleViewAction());
+    menuView->addAction(straySelectorWidget->toggleViewAction());
 
     // mouse move for grid
     connect(canvas, SIGNAL(mouseMove(const QPointF&)), &grid, SLOT(mouseMoved(const QPointF&)));
@@ -49,6 +58,7 @@ void EditorMainWindow::on_actionNew_triggered() {
     undoStack.clear();
     level.createNew();
     updateLevelBlocks();
+    straySelectorWidget->updateStrays();
     canvas->update();
     updateTitle();
 }
@@ -73,6 +83,7 @@ void EditorMainWindow::on_actionOpen_triggered() {
         return;
     }
     updateLevelBlocks();
+    straySelectorWidget->updateStrays();
     path = openPath;
     undoStack.clear();
     updateTitle();

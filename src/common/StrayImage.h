@@ -24,6 +24,14 @@ public:
 
     void paint(QPainter& p) const override;
 
+    const QString& getName() const;
+    const QPoint& getPos() const;
+    const QSize& getSize() const;
+    const QString& getTexture() const;
+
+    void setPos(const QPoint& pos);
+    void setSize(const QSize& size);
+
     void read(const QJsonObject& json) override;
     void write(QJsonObject& json) const override;
 };

@@ -133,3 +133,7 @@ void Level::updateBlocks(const QHash<QChar, QString>& texturesForBlocks) {
         blocks[blockSymbol] = Block(texturesForBlocks[blockSymbol]);
     }
 }
+
+const QList<StrayImage*>& Level::getStrays() const {
+    return strays;
+}
