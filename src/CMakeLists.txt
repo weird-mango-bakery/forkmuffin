@@ -60,6 +60,8 @@ set(EDITOR_SOURCES
         editor/widgets/StraySelectorWidget.cpp
         editor/widgets/StraySelectorWidget.h
         editor/widgets/stray_images.ui
+        editor/commands/ChangeStrayImageParamsCommand.cpp
+        editor/commands/ChangeStrayImageParamsCommand.h
         )
 
 set(COMMON_SOURCES

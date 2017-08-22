@@ -52,3 +52,11 @@ void StrayImage::setPos(const QPoint& p) {
 void StrayImage::setSize(const QSize& s) {
     size = s;
 }
+
+void StrayImage::setName(const QString& n) {
+    name = n;
+}
+
+void StrayImage::setTexture(const QString& tex) {
+    texture = tex;
+}

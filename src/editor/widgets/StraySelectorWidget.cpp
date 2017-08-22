@@ -1,7 +1,10 @@
 #include "StraySelectorWidget.h"
 
 #include "editor/EditorMainWindow.h"
+#include "editor/commands/ChangeStrayImageParamsCommand.h"
 #include "common/StrayImage.h"
+#include "common/TextureManager.h"
+#include <QDir>
 
 StraySelectorWidget::StraySelectorWidget(EditorMainWindow& editor): QDockWidget(&editor), editor(editor) {
     setupUi(this);
@@ -13,7 +16,7 @@ void StraySelectorWidget::updateStrays() {
         QString name = stray->getName();
         strayList->addItem(name);
     }
-    setEnabled(strayList->count() > 0);
+    frame->setEnabled(currentImage);
 }
 
 void StraySelectorWidget::on_strayList_currentTextChanged(const QString& strayName) {
@@ -21,6 +24,10 @@ void StraySelectorWidget::on_strayList_currentTextChanged(const QString& strayNa
 }
 
 void StraySelectorWidget::updateInfo(const QString& strayName) {
+    isInsideUpdate = true;
+    updateTextureNames();
+    // cleaning text so textChanged will be called.
+    imageName->setText("");
     for (StrayImage* stray : editor.getLevel().getStrays()) {
         if (stray->getName() == strayName) {
             currentImage = stray;
@@ -34,8 +41,21 @@ void StraySelectorWidget::updateInfo(const QString& strayName) {
             sizeWidth->setValue(size.width());
             sizeHeight->setValue(size.height());
 
-            textureName->setText(stray->getTexture());
-            return;
+            imageName->setText(strayName);
+            textureName->setCurrentText(stray->getTexture());
+            frame->setEnabled(true);
+            break;
+        }
+    }
+    isInsideUpdate = false;
+}
+
+void StraySelectorWidget::updateTextureNames() {
+    textureName->clear();
+    QStringList textureNameList = QDir(TextureManager::getTextureDir()).entryList();
+    for (const QString& texture : textureNameList) {
+        if (texture.endsWith(".png")) {
+            textureName->addItem(texture);
         }
     }
 }
@@ -57,16 +77,18 @@ void StraySelectorWidget::on_posY_valueChanged(int y) {
 }
 
 void StraySelectorWidget::updateSize(int width, int height) {
-    if (currentImage) {
-        currentImage->setSize(QSize(width, height));
-        editor.update();
+    if (currentImage && !isInsideUpdate) {
+        EditorCommand* command = new ChangeStrayImageParamsCommand(
+            editor, *currentImage, QPoint(posX->value(), posY->value()), QSize(width, height), currentImage->getTexture());
+        editor.pushCommand(*command);
     }
 }
 
 void StraySelectorWidget::updatePosition(int x, int y) {
-    if (currentImage) {
-        currentImage->setPos(QPoint(x, y));
-        editor.update();
+    if (currentImage&& !isInsideUpdate) {
+        EditorCommand* command = new ChangeStrayImageParamsCommand(
+            editor, *currentImage, QPoint(x, y), QSize(sizeWidth->value(), sizeHeight->value()), currentImage->getTexture());
+        editor.pushCommand(*command);
     }
 }
 
@@ -78,4 +100,38 @@ void StraySelectorWidget::clear() {
     sizeWidth->setValue(0);
     sizeHeight->setValue(0);
     textureName->clear();
+}
+
+void StraySelectorWidget::on_imageName_textChanged(const QString& strayName) {
+    QPalette p;
+    if (isUniqueName(strayName)) {
+        p.setColor(imageName->backgroundRole(), Qt::white);
+    } else {
+        p.setColor(imageName->backgroundRole(), Qt::red);
+    }
+    imageName->setPalette(p);
+}
+
+bool StraySelectorWidget::isUniqueName(const QString& strayName) const {
+    for (int i = 0; i < strayList->count(); ++i) {
+        QListWidgetItem* pItem = strayList->item(i);
+        if (pItem->text() == strayName.trimmed() && pItem != strayList->currentItem()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void StraySelectorWidget::updateCurrentInfo() {
+    if (currentImage) {
+        updateInfo(currentImage->getName());
+    }
+}
+
+void StraySelectorWidget::on_textureName_activated(const QString& textureName) {
+    if (currentImage) {
+        EditorCommand* command = new ChangeStrayImageParamsCommand(
+            editor, *currentImage, QPoint(posX->value(), posY->value()), QSize(sizeWidth->value(), sizeHeight->value()), textureName);
+        editor.pushCommand(*command);
+    }
 }
