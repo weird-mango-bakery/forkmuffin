@@ -61,35 +61,31 @@ void StraySelectorWidget::updateTextureNames() {
 }
 
 void StraySelectorWidget::on_sizeWidth_valueChanged(int width) {
-    updateSize(width, sizeHeight->value());
+    if (!currentImage || isInsideUpdate) {
+        return;
+    }
+    editor.pushCommand(*ChangeStrayImageParamsCommand::setWidth(editor, *currentImage, width));
 }
 
 void StraySelectorWidget::on_sizeHeight_valueChanged(int height) {
-    updateSize(sizeWidth->value(), height);
+    if (!currentImage || isInsideUpdate) {
+        return;
+    }
+    editor.pushCommand(*ChangeStrayImageParamsCommand::setHeight(editor, *currentImage, height));
 }
 
 void StraySelectorWidget::on_posX_valueChanged(int x) {
-    updatePosition(x, posY->value());
+    if (!currentImage || isInsideUpdate) {
+        return;
+    }
+    editor.pushCommand(*ChangeStrayImageParamsCommand::setX(editor, *currentImage, x));
 }
 
 void StraySelectorWidget::on_posY_valueChanged(int y) {
-    updatePosition(posX->value(), y);
-}
-
-void StraySelectorWidget::updateSize(int width, int height) {
-    if (currentImage && !isInsideUpdate) {
-        EditorCommand* command = new ChangeStrayImageParamsCommand(
-            editor, *currentImage, QPoint(posX->value(), posY->value()), QSize(width, height), currentImage->getTexture());
-        editor.pushCommand(*command);
+    if (!currentImage || isInsideUpdate) {
+        return;
     }
-}
-
-void StraySelectorWidget::updatePosition(int x, int y) {
-    if (currentImage&& !isInsideUpdate) {
-        EditorCommand* command = new ChangeStrayImageParamsCommand(
-            editor, *currentImage, QPoint(x, y), QSize(sizeWidth->value(), sizeHeight->value()), currentImage->getTexture());
-        editor.pushCommand(*command);
-    }
+    editor.pushCommand(*ChangeStrayImageParamsCommand::setY(editor, *currentImage, y));
 }
 
 void StraySelectorWidget::clear() {
@@ -123,15 +119,15 @@ bool StraySelectorWidget::isUniqueName(const QString& strayName) const {
 }
 
 void StraySelectorWidget::updateCurrentInfo() {
-    if (currentImage) {
-        updateInfo(currentImage->getName());
+    if (!currentImage || isInsideUpdate) {
+        return;
     }
+    updateInfo(currentImage->getName());
 }
 
 void StraySelectorWidget::on_textureName_activated(const QString& textureName) {
-    if (currentImage) {
-        EditorCommand* command = new ChangeStrayImageParamsCommand(
-            editor, *currentImage, QPoint(posX->value(), posY->value()), QSize(sizeWidth->value(), sizeHeight->value()), textureName);
-        editor.pushCommand(*command);
+    if (!currentImage || isInsideUpdate) {
+        return;
     }
+    editor.pushCommand(*ChangeStrayImageParamsCommand::setTexture(editor, *currentImage, textureName));
 }

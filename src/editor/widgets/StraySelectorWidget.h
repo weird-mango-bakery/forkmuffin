@@ -21,14 +21,6 @@ private:
     //! Sets selected stray image from the new name and updates image info on the widget.
     //! \param strayName The new name.
     void updateInfo(const QString& strayName);
-    //! Resizes selected stray image with the new width and the new height.
-    //! \param width The new width.
-    //! \param height The new height.
-    void updateSize(int width, int height);
-    //! Sets selected stray image pos to the new x and the new y.
-    //! \param x The new x.
-    //! \param y The new y.
-    void updatePosition(int x, int y);
     //! Clear list of stray images and params on the widget.
     void clear();
     //! Fills the combobox with textures from texture folder.
