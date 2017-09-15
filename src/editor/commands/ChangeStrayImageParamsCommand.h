@@ -1,18 +1,16 @@
 #pragma once
 
+#include "editor/commands/ImageCommandBase.h"
 #include <QPoint>
 #include <QSize>
-#include "editor/commands/EditorCommand.h"
 
 class EditorMainWindow;
 class StrayImage;
 
 //! A command for changing stray image params. Each command can change only one of the following params:
 //! x, y, width, height or texture name.
-class ChangeStrayImageParamsCommand : public EditorCommand {
+class ChangeStrayImageParamsCommand : public ImageCommandBase {
 private:
-    //! The reference to stray image that we are changing.
-    StrayImage& currentImage;
     //! The next position of the image.
     QPoint pos;
     //! The new size of the image.

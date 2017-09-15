@@ -24,4 +24,6 @@ public:
     static TextureManager& get();
     //! Returns path to directory with textures.
     static QString getTextureDir();
+    //! Returns all png files in directory with textures.
+    static QStringList getTextureNames();
 };

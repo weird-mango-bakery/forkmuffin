@@ -6,15 +6,15 @@ ChangeStrayImageParamsCommand::CommandType ChangeStrayImageParamsCommand::lastCo
 int ChangeStrayImageParamsCommand::lastCommandId = 1;
 
 void ChangeStrayImageParamsCommand::undo() {
-    currentImage.setPos(oldPos);
-    currentImage.setSize(oldSize);
-    currentImage.setTexture(oldTextureName);
+    currentImage().setPos(oldPos);
+    currentImage().setSize(oldSize);
+    currentImage().setTexture(oldTextureName);
 }
 
 void ChangeStrayImageParamsCommand::redo() {
-    currentImage.setPos(pos);
-    currentImage.setSize(size);
-    currentImage.setTexture(textureName);
+    currentImage().setPos(pos);
+    currentImage().setSize(size);
+    currentImage().setTexture(textureName);
 }
 
 ChangeStrayImageParamsCommand::ChangeStrayImageParamsCommand(
@@ -26,8 +26,7 @@ ChangeStrayImageParamsCommand::ChangeStrayImageParamsCommand(
     const QString& textureName,
     CommandType type
 )
-    : EditorCommand(editor, text)
-    , currentImage(currentImage)
+    : ImageCommandBase(editor, text, currentImage.getName())
     , pos(pos)
     , size(size)
     , textureName(textureName)

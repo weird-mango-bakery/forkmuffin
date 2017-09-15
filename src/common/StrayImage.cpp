@@ -6,6 +6,9 @@
 
 StrayImage::StrayImage() : Renderable(Z_BACKGROUND) {}
 
+StrayImage::StrayImage(const QString& name, const QPoint& pos, const QSize& size, const QString& texture)
+    : Renderable(Z_BACKGROUND), name(name), pos(pos), size(size), texture(texture) {}
+
 void StrayImage::paint(QPainter& p) const {
     TextureManager& manager = TextureManager::get();
     p.drawImage(QRect(pos, size), manager.getImage(texture));

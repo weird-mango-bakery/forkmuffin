@@ -22,6 +22,9 @@ public:
     //! Creates empty image with BACKGROUND Z-order.
     StrayImage();
 
+    //! Creates image from the given params with BACKGROUND Z-order.
+    StrayImage(const QString& name, const QPoint& pos, const QSize& size, const QString& texture);
+
     void paint(QPainter& p) const override;
 
     //! Returns the image name.

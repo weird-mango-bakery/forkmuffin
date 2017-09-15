@@ -42,6 +42,7 @@ EditorMainWindow::EditorMainWindow()
     menuEdit->addAction(redoAction);
     // undo stack connections
     connect(&undoStack, SIGNAL(indexChanged(int)), canvas, SLOT(update()));
+    connect(&undoStack, SIGNAL(indexChanged(int)), straySelectorWidget, SLOT(updateStrays()));
     connect(&undoStack, SIGNAL(indexChanged(int)), straySelectorWidget, SLOT(updateCurrentInfo()));
     connect(&undoStack, SIGNAL(cleanChanged(bool)), this, SLOT(updateTitle()));
 
@@ -167,4 +168,8 @@ void EditorMainWindow::on_blockSelectorWidget_blockSelected(QChar chr) {
 
 QChar EditorMainWindow::getCurrentBlock() const {
     return currentBlock;
+}
+
+QPoint EditorMainWindow::getScreenCenter() const {
+    return QPoint(canvas->size().width() / 2, canvas->height() / 2);
 }

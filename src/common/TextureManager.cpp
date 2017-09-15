@@ -2,6 +2,7 @@
 
 #include <QCoreApplication>
 #include <QImageReader>
+#include <QDir>
 
 const QImage& TextureManager::getImage(const QString& name) {
     QString path = QString("%1/%2").arg(getTextureDir()).arg(name);
@@ -37,4 +38,15 @@ const QImage& TextureManager::getInvalid() const {
 
 QString TextureManager::getTextureDir() {
     return QString("%1/../data/textures").arg(QCoreApplication::applicationDirPath());
+}
+
+QStringList TextureManager::getTextureNames() {
+    QStringList textureNameList = QDir(TextureManager::getTextureDir()).entryList();
+    QStringList textures;
+    for (const QString& texture : textureNameList) {
+        if (texture.endsWith(".png")) {
+            textures << texture;
+        }
+    }
+    return textures;
 }

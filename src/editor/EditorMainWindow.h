@@ -70,6 +70,8 @@ public:
     const Level& getLevel() const;
     //! Returns the const camera reference.
     const Camera& getCamera() const;
+    //! Returns a point of the screen center (in screen coordinates)
+    QPoint getScreenCenter() const;
 
     //! Push the command to the undo stack.
     void pushCommand(EditorCommand& command);

@@ -36,7 +36,7 @@
           </sizepolicy>
          </property>
          <property name="minimum">
-          <number>0</number>
+          <number>-1024</number>
          </property>
          <property name="maximum">
           <number>1024</number>
@@ -105,6 +105,9 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimum">
+          <number>-1024</number>
+         </property>
          <property name="maximum">
           <number>1024</number>
          </property>
@@ -132,6 +135,31 @@
        </item>
       </layout>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="addButton">
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="cloneButton">
+        <property name="text">
+         <string>Clone</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="deleteButton">
+        <property name="text">
+         <string>Delete</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QListWidget" name="strayList"/>

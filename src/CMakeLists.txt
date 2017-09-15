@@ -62,6 +62,14 @@ set(EDITOR_SOURCES
         editor/widgets/stray_images.ui
         editor/commands/ChangeStrayImageParamsCommand.cpp
         editor/commands/ChangeStrayImageParamsCommand.h
+        editor/commands/AddImageCommand.cpp
+        editor/commands/AddImageCommand.h
+        editor/commands/AddDeleteImageCommand.cpp
+        editor/commands/AddDeleteImageCommand.h
+        editor/commands/DeleteImageCommand.cpp
+        editor/commands/DeleteImageCommand.h
+        editor/commands/ImageCommandBase.cpp
+        editor/commands/ImageCommandBase.h
         )
 
 set(COMMON_SOURCES

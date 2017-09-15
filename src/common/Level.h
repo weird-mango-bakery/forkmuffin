@@ -40,6 +40,9 @@ public:
 
     //! Returns list of stray images on the level.
     const QList<StrayImage*>& getStrays() const;
+    //! Returns stray image from stray list by the specified name.
+    //! \param name The specified name.
+    StrayImage* getStrayFromName(const QString& name) const;
     //! Returns level width in blocks.
     int getWidth() const;
     //! Returns level height in blocks.
@@ -67,6 +70,12 @@ public:
     //! \param texturesForBlocks map with char-to-texture binding.
     void updateBlocks(const QHash<QChar, QString>& texturesForBlocks);
 
+    //! Adds the specified stray image to the stray list.
+    //! \param img The specified stray.
+    void addStrayImage(StrayImage* img);
+    //! Deletes the image with the specified name from the stray list.
+    //! \param name The image name.
+    void deleteStrayImage(const QString& name);
     //! Removes all lines on map and all block type on block.
     void clear();
     //! Makes empty level 16 blocks wide and 10 blocks tall.

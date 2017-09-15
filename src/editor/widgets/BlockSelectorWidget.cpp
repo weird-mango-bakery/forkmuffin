@@ -29,8 +29,7 @@ void BlockSelectorWidget::appendBlock(const QString& textureName, QChar symbol) 
 BlockSelectorWidget::BlockSelectorWidget(QWidget* parent): QDockWidget(parent) {
     setupUi(this);
 
-    QStringList textureNameList = QDir(TextureManager::getTextureDir()).entryList();
-    for (const QString& textureName : textureNameList) {
+    for (const QString& textureName : TextureManager::getTextureNames()) {
         if (textureName.startsWith("block_") && textureName[7] == '_') {
             QChar symbol = textureName[6];
             appendBlock(textureName, symbol);

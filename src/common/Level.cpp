@@ -60,7 +60,7 @@ void Level::read(const QJsonObject& json) {
         map << row.toString();
     }
     for (QJsonValue stray : json["stray_images"].toArray()) {
-        strays << new StrayImage();
+        addStrayImage(new StrayImage());
         strays.last()->read(stray.toObject());
     }
 }
@@ -136,4 +136,25 @@ void Level::updateBlocks(const QHash<QChar, QString>& texturesForBlocks) {
 
 const QList<StrayImage*>& Level::getStrays() const {
     return strays;
+}
+
+void Level::addStrayImage(StrayImage* img) {
+    strays << img;
+}
+
+void Level::deleteStrayImage(const QString& name) {
+    StrayImage* stray = getStrayFromName(name);
+    if (stray) {
+        strays.removeOne(stray);
+        delete stray;
+    }
+}
+
+StrayImage* Level::getStrayFromName(const QString& name) const {
+    for (StrayImage* stray : strays) {
+        if (stray->getName() == name) {
+            return stray;
+        }
+    }
+    return nullptr;
 }
