@@ -9,12 +9,14 @@ void ChangeStrayImageParamsCommand::undo() {
     currentImage().setPos(oldPos);
     currentImage().setSize(oldSize);
     currentImage().setTexture(oldTextureName);
+    currentImage().setZOrder(oldZOrder);
 }
 
 void ChangeStrayImageParamsCommand::redo() {
     currentImage().setPos(pos);
     currentImage().setSize(size);
     currentImage().setTexture(textureName);
+    currentImage().setZOrder(zOrder);
 }
 
 ChangeStrayImageParamsCommand::ChangeStrayImageParamsCommand(
@@ -24,15 +26,18 @@ ChangeStrayImageParamsCommand::ChangeStrayImageParamsCommand(
     const QPoint& pos,
     const QSize& size,
     const QString& textureName,
+    float zOrder,
     CommandType type
 )
     : ImageCommandBase(editor, text, currentImage.getName())
     , pos(pos)
     , size(size)
     , textureName(textureName)
+    , zOrder(zOrder)
     , oldPos(currentImage.getPos())
     , oldSize(currentImage.getSize())
     , oldTextureName(currentImage.getTexture())
+    , oldZOrder(currentImage.getZOrder())
     , commandType(type)
     , commandId(type == lastCommandType ? lastCommandId : ++lastCommandId)
 {
@@ -47,6 +52,7 @@ EditorCommand* ChangeStrayImageParamsCommand::setX(EditorMainWindow& editor, Str
         QPoint(newX, currentImage.getPos().y()),
         currentImage.getSize(),
         currentImage.getTexture(),
+        currentImage.getZOrder(),
         CommandType::SET_X
     );
 }
@@ -59,6 +65,7 @@ EditorCommand* ChangeStrayImageParamsCommand::setY(EditorMainWindow& editor, Str
         QPoint(currentImage.getPos().x(), newY),
         currentImage.getSize(),
         currentImage.getTexture(),
+        currentImage.getZOrder(),
         CommandType::SET_Y
     );
 }
@@ -71,6 +78,7 @@ EditorCommand* ChangeStrayImageParamsCommand::setWidth(EditorMainWindow& editor,
         currentImage.getPos(),
         QSize(newWidth, currentImage.getSize().height()),
         currentImage.getTexture(),
+        currentImage.getZOrder(),
         CommandType::SET_WIDTH
     );
 }
@@ -83,6 +91,7 @@ EditorCommand* ChangeStrayImageParamsCommand::setHeight(EditorMainWindow& editor
         currentImage.getPos(),
         QSize(currentImage.getSize().width(), newHeight),
         currentImage.getTexture(),
+        currentImage.getZOrder(),
         CommandType::SET_HEIGHT
     );
 }
@@ -95,7 +104,21 @@ EditorCommand* ChangeStrayImageParamsCommand::setTexture(EditorMainWindow& edito
         currentImage.getPos(),
         currentImage.getSize(),
         newTex,
+        currentImage.getZOrder(),
         CommandType::SET_TEXTURE
+    );
+}
+
+EditorCommand* ChangeStrayImageParamsCommand::setZOrder(EditorMainWindow& editor, StrayImage& currentImage, double newZOrder) {
+    return new ChangeStrayImageParamsCommand(
+        editor,
+        "Change texture",
+        currentImage,
+        currentImage.getPos(),
+        currentImage.getSize(),
+        currentImage.getTexture(),
+        static_cast<float>(newZOrder),
+        CommandType::SET_Z_ORDER
     );
 }
 

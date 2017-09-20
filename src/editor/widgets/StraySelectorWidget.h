@@ -39,6 +39,10 @@ private slots:
     void on_sizeHeight_valueChanged(int height);
     void on_posX_valueChanged(int x);
     void on_posY_valueChanged(int y);
+    void on_zOrder_valueChanged(double z);
+    void on_zToHud_clicked();
+    void on_zToFront_clicked();
+    void on_zToBack_clicked();
     void on_imageName_textChanged(const QString& strayName);
     void on_textureName_activated(const QString& textureName);
     void on_addButton_clicked();

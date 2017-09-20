@@ -82,6 +82,7 @@ void StraySelectorWidget::updateInfo(const QString& strayName) {
         sizeWidth->setValue(size.width());
         sizeHeight->setValue(size.height());
 
+        zOrder->setValue(stray->getZOrder());
         imageName->setText(strayName);
         textureName->setCurrentText(stray->getTexture());
         frame->setEnabled(true);
@@ -122,12 +123,35 @@ void StraySelectorWidget::on_posY_valueChanged(int y) {
     editor.pushCommand(*ChangeStrayImageParamsCommand::setY(editor, *currentImage, y));
 }
 
+void StraySelectorWidget::on_zOrder_valueChanged(double z) {
+    if (!currentImage || isInsideUpdate) {
+        return;
+    }
+    zToHud->setDisabled(z == Renderable::Z_HUD);
+    zToFront->setDisabled(z == Renderable::Z_FOREGROUND);
+    zToBack->setDisabled(z == Renderable::Z_BACKGROUND);
+    editor.pushCommand(*ChangeStrayImageParamsCommand::setZOrder(editor, *currentImage, z));
+}
+
+void StraySelectorWidget::on_zToHud_clicked() {
+    zOrder->setValue(Renderable::Z_HUD);
+}
+
+void StraySelectorWidget::on_zToFront_clicked() {
+    zOrder->setValue(Renderable::Z_FOREGROUND);
+}
+
+void StraySelectorWidget::on_zToBack_clicked() {
+    zOrder->setValue(Renderable::Z_BACKGROUND);
+}
+
 void StraySelectorWidget::clearData() {
     currentImage = nullptr;
     posX->setValue(0);
     posY->setValue(0);
     sizeWidth->setValue(0);
     sizeHeight->setValue(0);
+    zOrder->setValue(0);
 }
 
 void StraySelectorWidget::on_imageName_textChanged(const QString& strayName) {

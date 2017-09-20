@@ -17,12 +17,16 @@ private:
     QSize size;
     //! The new texture name of the image.
     QString textureName;
+    //! The new z-order of the image.
+    float zOrder;
     //! The current position of the image.
     QPoint oldPos;
     //! The current size of the image.
     QSize oldSize;
     //! The current texture name of the image.
     QString oldTextureName;
+    //! The current z-order of the image.
+    float oldZOrder;
 
     //! The enum class that describes which one of the params the command changes.
     enum class CommandType {
@@ -36,6 +40,8 @@ private:
         SET_HEIGHT,
         //! The command changes texture name.
         SET_TEXTURE,
+        //! The command changes z-order.
+        SET_Z_ORDER,
     };
     //! The type of the command.
     CommandType commandType;
@@ -54,6 +60,7 @@ private:
         const QPoint& pos,
         const QSize& size,
         const QString& textureName,
+        float zOrder,
         CommandType type
     );
     //! Returns the command id. Qt tries to merge commands with the same id by calling mergeWith().
@@ -78,6 +85,8 @@ public:
     static EditorCommand* setHeight(EditorMainWindow& editor, StrayImage& currentImage, int newHeight);
     //! Creates the command that changes only texture name.
     static EditorCommand* setTexture(EditorMainWindow& editor, StrayImage& currentImage, const QString& newTex);
+    //! Creates the command that changes only z-order.
+    static EditorCommand* setZOrder(EditorMainWindow& editor, StrayImage& currentImage, double newZOrder);
 
     void undo() override;
     void redo() override;
