@@ -4,6 +4,7 @@
 #include "editor/commands/ChangeStrayImageParamsCommand.h"
 #include "editor/commands/AddImageCommand.h"
 #include "editor/commands/DeleteImageCommand.h"
+#include "editor/commands/ChangeStrayImageNameCommand.h"
 #include "common/StrayImage.h"
 #include "common/TextureManager.h"
 
@@ -16,9 +17,13 @@ StraySelectorWidget::StraySelectorWidget(EditorMainWindow& editor): QDockWidget(
 
 void StraySelectorWidget::updateStrays() {
     bool currentDeleted = true;
+    bool currentRenamed = true;
     for (StrayImage* stray : editor.getLevel().getStrays()) {
         if (currentImage == stray) {
             currentDeleted = false;
+            if (stray->getName() == currentName) {
+                currentRenamed = false;
+            }
             break;
         }
     }
@@ -29,17 +34,22 @@ void StraySelectorWidget::updateStrays() {
     // Remove stray images.
     for (int i = 0; i < strayList->count(); ++i) {
         QListWidgetItem* item = strayList->item(i);
+        if (currentRenamed && item->text() == currentName) {
+            currentName = currentImage->getName();
+            item->setText(currentName);
+            continue;
+        }
         bool needDel = true;
         for (StrayImage* stray : editor.getLevel().getStrays()) {
             if (stray->getName() == item->text()) {
                 needDel = false;
                 break;
             }
-
         }
         if (needDel) {
             strayList->removeItemWidget(item);
             delete item;
+            break; //TODO multiple deletions at once are not supported yet.
         }
     }
     // Add stray images.
@@ -82,10 +92,13 @@ void StraySelectorWidget::updateInfo(const QString& strayName) {
         sizeWidth->setValue(size.width());
         sizeHeight->setValue(size.height());
 
+        currentName = strayName;
         zOrder->setValue(stray->getZOrder());
         imageName->setText(strayName);
         textureName->setCurrentText(stray->getTexture());
         frame->setEnabled(true);
+    } else {
+        currentName.clear();
     }
     isInsideUpdate = false;
 }
@@ -146,6 +159,7 @@ void StraySelectorWidget::on_zToBack_clicked() {
 }
 
 void StraySelectorWidget::clearData() {
+    currentName.clear();
     currentImage = nullptr;
     posX->setValue(0);
     posY->setValue(0);
@@ -165,6 +179,17 @@ void StraySelectorWidget::on_imageName_textChanged(const QString& strayName) {
         p.setColor(imageName->backgroundRole(), Qt::red);
     }
     imageName->setPalette(p);
+}
+
+void StraySelectorWidget::on_imageName_editingFinished() {
+    if (!currentImage || isInsideUpdate) {
+        return;
+    }
+    QString strayName = imageName->text();
+    if (isUniqueName(strayName)) {
+        ChangeStrayImageNameCommand* cmd = new ChangeStrayImageNameCommand(editor, strayName, currentName);
+        editor.pushCommand(*cmd);
+    }
 }
 
 bool StraySelectorWidget::isUniqueName(const QString& strayName) const {

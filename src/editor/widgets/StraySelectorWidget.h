@@ -15,6 +15,9 @@ private:
     EditorMainWindow& editor;
     //! The selected stray image.
     StrayImage* currentImage = nullptr;
+    //! The name of the selected stray image.
+    //! When the selected image changes its name, this field contains the previous name until UI gets updated.
+    QString currentName;
     //! Set to true when we are changing displayed params inside updateInfo to prevent adding commands to undo stack.
     bool isInsideUpdate = false;
 
@@ -44,6 +47,7 @@ private slots:
     void on_zToFront_clicked();
     void on_zToBack_clicked();
     void on_imageName_textChanged(const QString& strayName);
+    void on_imageName_editingFinished();
     void on_textureName_activated(const QString& textureName);
     void on_addButton_clicked();
     void on_cloneButton_clicked();

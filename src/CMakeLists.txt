@@ -70,6 +70,8 @@ set(EDITOR_SOURCES
         editor/commands/DeleteImageCommand.h
         editor/commands/ImageCommandBase.cpp
         editor/commands/ImageCommandBase.h
+        editor/commands/ChangeStrayImageNameCommand.cpp
+        editor/commands/ChangeStrayImageNameCommand.h
         )
 
 set(COMMON_SOURCES
